@@ -1,0 +1,364 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<link rel="stylesheet" href="style.css">
+
+
+<div id='container' class='container-head'>
+<h1>DIFID Storyboard</h1>
+
+
+Introduction here <br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br>
+
+color: #858483
+
+#DA6761
+</div>
+
+
+
+
+<div id='container' class='container-1'>
+  <div id='graph'></div>
+  <div id='sections'>
+      
+      
+    <div>
+        
+      <h3>Slide1</h3>,jhlkjlkjkjk jkljkl jl kjlkr
+      <span class='mono'>graph-scroll</span> /;,;m,j klh kjjhnk
+      <!-- <pre>
+        d3.graphScroll()
+          .sections(d3.selectAll('#sections > div'))
+          .on('active', function(i){
+            console.log(i + 'th section active') })
+      </pre> -->
+    </div>
+
+
+
+
+    <div>
+      <h3>Highlight active text</h3>
+      The top most text section scrolled into view is classed <span class='mono'>graph-scroll-active</span>. This makes it easy to highlight the active section with css: 
+        <!-- <pre>
+        #sections > div{
+          opacity: .3
+        } 
+        #sections div.graph-scroll-active{
+          opacity: 1;
+        }
+        </pre> -->
+    </div>
+    
+    
+
+
+
+    <div>
+      <h3>Headers and footers</h3>
+<!-- 
+        <pre>
+        d3.graphScroll()
+          .graph(d3.select('#graph'))
+          .container(d3.select('#container'))
+        <pre> -->
+    </div>
+    
+    
+    
+
+    <div>
+      <h3>Sticky graph</h3>
+      When the graph starts to scroll out of view, <span class='mono'>postiion: sticky</span> keeps the graph element stuck to 
+    </div>
+
+
+
+
+
+  </div>
+
+</div>
+
+
+
+
+<!-- 
+
+<div id='container' class='container-2'>
+  <div id='graph'></div>
+
+    <div id='sections'>
+        <div>
+          <h3>Bit with new figure</h3>
+
+        </div>
+    </div>
+
+</div>
+ -->
+
+
+
+
+
+
+
+
+
+<script src="d3v4+jetpack.js"></script>
+<script src="graph-scroll.js"></script>
+<script src="https://d3js.org/d3-geo.v1.min.js"></script>
+<script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+<script src="https://unpkg.com/topojson-client@3"></script>
+
+
+
+
+<script>
+
+function setupCanvas(canvas) {
+  // Get the device pixel ratio, falling back to 1.
+  var dpr = window.devicePixelRatio || 1;
+  // Get the size of the canvas in CSS pixels.
+  var rect = canvas.getBoundingClientRect();
+  // Give the canvas pixel dimensions of their CSS
+  // size * the device pixel ratio.
+  canvas.width = rect.width * dpr;
+  canvas.height = rect.height * dpr;
+  var ctx = canvas.getContext('2d');
+  // Scale all drawing operations by the dpr, so you
+  // don't have to worry about the difference.
+  ctx.scale(dpr, dpr);
+  return ctx;
+}
+
+
+d3.queue()
+  .defer(d3.json, 'world-110m.v1.json')
+  .defer(d3.csv, '../graph/nodes.csv')
+  .await(load)
+
+function load(err,...data){
+    window.data = data;
+    render();
+} 
+
+
+
+
+
+
+
+
+
+const mw = 1200;
+var oldWidth = 0
+
+
+async function render(){
+    
+      
+  if (oldWidth == innerWidth) return
+  oldWidth = innerWidth
+
+  var width = height = Math.min(innerWidth,innerHeight)//d3.select('#graph').node().offsetWidth
+  
+  if (width>mw){
+      width = height = mw
+  }
+
+  split = 0.8
+  
+d3.selectAll('#sections').style('width',((1-split)*width)+'px')
+var fig = width*split-10
+
+ var canvas = d3.select('#graph')
+  .style('width', (width*split)+'px')
+  .html('')
+  .append('canvas')
+  .style('width', (fig)+'px')
+  .style('height', (fig)+'px')
+
+var context = setupCanvas(canvas.node());
+
+const projection = d3
+    .geoArmadillo()
+    .fitSize([fig,fig], { type: "Sphere" })
+    //.rotate([20, -90, 45])
+    .precision(0.1);
+
+const path = d3.geoPath(projection, context);
+  context.save();   
+
+world = data[0];
+outline = ({type: "Sphere"}) ;
+graticule = d3.geoGraticule10()
+land =  topojson.feature(world, world.objects.land)
+points = data[1].map(function(d){d.pmap = projection([parseInt(d.lon),parseInt(d.lat)]); return d})
+
+console.log(points[3])
+
+/// Internal functions
+
+function clear(){
+    context.clearRect(0, 0, fig, fig);
+}
+
+
+function drawMap(alpha = 1 ){
+context.globalAlpha = alpha;    
+context.beginPath(), path(outline), context.clip(), context.fillStyle = "#fff", context.fillRect(0, 0, width, height);
+
+context.beginPath(), path(graticule), context.strokeStyle = "#ccc", context.stroke();     
+
+
+context.beginPath(), path(land), context.fillStyle = "#333", context.fill();
+
+
+//context.restore();
+// context.beginPath(), path(outline), context.strokeStyle = "red", context.stroke();
+
+}
+
+
+function plot_points(size=1){
+    
+    points.forEach(function (p){
+        
+        context.beginPath();
+        context.arc(p.pmap[0],p.pmap[1], 1*size, 0, 2*Math.PI);
+        context.fillStyle = `rgba(255,160,0,${size})`
+        context.fill()    
+        
+        
+    })
+//context.restore();
+console.log('pt end')    
+}
+    
+
+
+function plot_points(size=1){
+    
+    points.forEach(function (p){
+        
+        context.beginPath();
+        context.arc(p.pmap[0],p.pmap[1], 1*size, 0, 2*Math.PI);
+        context.fillStyle = `rgba(255,160,0,${size})`
+        context.fill()    
+                
+    })
+//context.restore();
+console.log('pt end')    
+}
+
+
+
+function plot_pc(alpha=1){
+    
+    var cs = d3.schemeCategory20.map(d=>d3.color(d))
+    
+    points.forEach(function (p){
+        var c = cs[parseInt(p.infomap)] || d3.color('green')
+        context.beginPath();
+        context.arc(p.pmap[0],p.pmap[1], 1, 0, 2*Math.PI);
+        context.fillStyle = `rgba(${c.r},${c.b},${c.g},${alpha})`
+        context.fill()    
+                
+    })
+//context.restore();
+console.log('pt end')    
+}
+
+
+ 
+  
+  var gs = d3.graphScroll()
+      .container(d3.select('.container-1'))
+      .graph(d3.selectAll('container-1 #graph'))
+      .eventId('uniqueId1')  // namespace for scroll and resize events
+      .sections(d3.selectAll('.container-1 #sections > div'))
+      // .offset(innerWidth < 900 ? innerHeight - 30 : 200)
+      .on('active', function(section){
+    
+    /// do stuff i 
+    
+    switch (section) {
+        
+        case 0:
+            d3.select({}).transition()
+              .duration(3000)
+              .ease(d3.easeQuadIn)//.ease(Math.sqrt)
+              .tween("fade", function() {
+                return drawMap
+              });
+              
+            break;
+        case 1:
+            console.log(1)
+            clear()
+            drawMap(alpha = 1 )
+            d3.select({}).transition()
+              .duration(1500)
+              .ease(d3.easeCubicInOut)//.ease(Math.sqrt)
+              .tween("facepts", plot_points);
+            
+            break;
+        case 2:
+            console.log(2)
+            clear()
+            drawMap(alpha = 1 )
+            d3.select({}).transition()
+              .duration(1500)
+              .ease(d3.easeCubicInOut)//.ease(Math.sqrt)
+              .tween("fade2col", function() {
+                return plot_pc
+              });
+            
+            break;      
+     
+  
+  
+    }
+    
+      })
+
+
+
+
+
+
+/// container 2
+  // 
+  // var gs2 = d3.graphScroll()
+  //     .container(d3.select('.container-2'))
+  //     .graph(d3.selectAll('.container-2 #graph'))
+  //     .eventId('uniqueId2')  // namespace for scroll and resize events
+  //     .sections(d3.selectAll('.container-2 #sections > div'))
+  //     .on('active', function(i){
+  //       var h = height
+  //       var w = width
+  // 
+  // 
+  //       // path.transition().duration(1000)
+  //       //     .attr('d', dArray[i])
+  //       //     .style('fill', colors[i])
+  //     })
+  // 
+  // 
+
+
+      
+}
+
+
+
+d3.select(window).on('resize', render)
+
+
+</script>
