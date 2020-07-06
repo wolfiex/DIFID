@@ -1,0 +1,227 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<link rel="stylesheet" href="style.css">
+
+
+<div id='container' class='container-head'>
+<h1>DIFID Storyboard</h1>
+
+
+Introduction here <br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br>
+
+color: #858483
+
+#DA6761
+</div>
+
+
+
+
+<div id='container' class='container-1'>
+  <div id='graph'></div>
+  <div id='sections'>
+      
+      
+    <div>
+        
+      <h3>Slide1</h3>,jhlkjlkjkjk jkljkl jl kjlkr
+      <span class='mono'>graph-scroll</span> /;,;m,j klh kjjhnk
+      <!-- <pre>
+        d3.graphScroll()
+          .sections(d3.selectAll('#sections > div'))
+          .on('active', function(i){
+            console.log(i + 'th section active') })
+      </pre> -->
+    </div>
+
+
+
+
+    <div>
+      <h3>Highlight active text</h3>
+      The top most text section scrolled into view is classed <span class='mono'>graph-scroll-active</span>. This makes it easy to highlight the active section with css: 
+        <!-- <pre>
+        #sections > div{
+          opacity: .3
+        } 
+        #sections div.graph-scroll-active{
+          opacity: 1;
+        }
+        </pre> -->
+    </div>
+    
+    
+
+
+
+    <div>
+      <h3>Headers and footers</h3>
+<!-- 
+        <pre>
+        d3.graphScroll()
+          .graph(d3.select('#graph'))
+          .container(d3.select('#container'))
+        <pre> -->
+    </div>
+    
+    
+    
+
+    <div>
+      <h3>Sticky graph</h3>
+      When the graph starts to scroll out of view, <span class='mono'>postiion: sticky</span> keeps the graph element stuck to 
+    </div>
+
+
+
+
+
+  </div>
+
+</div>
+
+
+
+
+<!-- 
+
+<div id='container' class='container-2'>
+  <div id='graph'></div>
+
+    <div id='sections'>
+        <div>
+          <h3>Bit with new figure</h3>
+
+        </div>
+    </div>
+
+</div>
+ -->
+
+
+
+
+
+
+
+
+
+<script src="d3v4+jetpack.js"></script>
+<script src="graph-scroll.js"></script>
+
+
+
+
+
+
+
+<script>
+
+var oldWidth = 0
+
+
+function render(){
+    
+          
+  if (oldWidth == innerWidth) return
+  oldWidth = innerWidth
+
+  var width = height = Math.min(innerWidth,innerHeight)//d3.select('#graph').node().offsetWidth
+  
+  if (width>900){
+      width = height = 900
+  }
+
+  split = 0.8
+  
+
+ d3.selectAll('#sections').style('width',((1-split)*width)+'px')
+ //d3.selectAll('pre').style('max-width',(0.1*width)+'px!important')
+  // return console.log(width, height)
+
+  var svg = d3.select('#graph')
+  .style('width', (width*split)+'px')
+//.style('right', (width*(1-split))+'px')
+  .html('')
+  .append('svg')
+  .style('width', (width*split-10)+'px')
+  .style('height', (height*split-10)+'px')
+      //.attrs({width: width*split-0, height: height*split})
+
+      
+      
+      
+      
+      
+      var r = 40
+
+
+  var circle = svg.append('circle')
+      .attrs({cx: 0, cy: 0, r: r})
+
+  var colors = ['orange', 'purple', 'steelblue', 'pink', 'black']
+  
+  
+  
+  
+  
+  var gs = d3.graphScroll()
+      .container(d3.select('.container-1'))
+      .graph(d3.selectAll('container-1 #graph'))
+      .eventId('uniqueId1')  // namespace for scroll and resize events
+      .sections(d3.selectAll('.container-1 #sections > div'))
+      // .offset(innerWidth < 900 ? innerHeight - 30 : 200)
+      .on('active', function(i){
+        var pos = [ {cx: width - r, cy: r},
+                    {cx: r,         cy: r},
+                    {cx: width - r, cy: height - r},
+                    {cx: width/2,   cy: height/2} ][i]
+        
+        circle.transition().duration(1000)
+            .attrs(pos)
+          .transition()
+            .style('fill', colors[i])
+      })
+
+
+  var svg2 = d3.select('.container-2 #graph').html("<div class='vs'></div>")
+    .append('svg')
+      .attrs({width: width, height: height})
+
+  var path = svg2.append('path')
+
+
+
+
+
+/// container 2
+  // 
+  // var gs2 = d3.graphScroll()
+  //     .container(d3.select('.container-2'))
+  //     .graph(d3.selectAll('.container-2 #graph'))
+  //     .eventId('uniqueId2')  // namespace for scroll and resize events
+  //     .sections(d3.selectAll('.container-2 #sections > div'))
+  //     .on('active', function(i){
+  //       var h = height
+  //       var w = width
+  // 
+  // 
+  //       // path.transition().duration(1000)
+  //       //     .attr('d', dArray[i])
+  //       //     .style('fill', colors[i])
+  //     })
+  // 
+  // 
+
+
+      
+}
+render()
+d3.select(window).on('resize', render)
+
+
+</script>
