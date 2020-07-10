@@ -1,0 +1,30 @@
+// graph correct
+// var graphxml = data[2].documentElement
+// var shape = graphxml.viewBox.baseVal
+// 
+// var graph = {papers:[], topics : [] ,links:[],shape : shape}  
+// 
+// graphxml.querySelectorAll('g[id=edges] path').forEach(function (pth){
+//     graph.links.push({d:pth.getAttribute('d'), col:pth.getAttribute('stroke')})
+// })
+// 
+// graphxml.querySelectorAll('g[id=nodes] circle').forEach(function (nds){        
+//     var att = nds.attributes;
+//     graph[parseInt(att.r)===5?'papers':'topics' ].push({
+//         x:att.cx, y:att.cy
+//     })
+// })
+// 
+// 
+// data[2] = graph
+
+
+
+
+
+ 
+  
+// //raycasting
+// window.raycaster = new THREE.Raycaster();
+// window.raycaster.params.Points.threshold = 0.01;
+// var mouse = new THREE.Vector2();
