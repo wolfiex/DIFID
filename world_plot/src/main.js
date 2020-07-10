@@ -225,7 +225,7 @@ var gs = d3.graphScroll()
   
   switch (section) {
 
-      case 0:
+      case 1:
           d3.select({}).transition()
             .duration(2000)
             .ease(d3.easeQuadIn)//.ease(Math.sqrt)
@@ -244,22 +244,9 @@ var gs = d3.graphScroll()
             });
             
           break;  
-      // case 1:
-      //     d3.select({}).transition()
-      //       .duration(2000)
-      //       .ease(d3.easeQuadIn)//.ease(Math.sqrt)
-      //       .tween("document", function(i) {
-      //           g.nodes.documents.visible=true
-      //           g.links.visible=false
-      //           console.log('adding documents')
-      //           return function (i){
-      //           g.nodes.documents.children.forEach(d=>d.material.opacity=i*.8)
-      //       }
-      //       });
-      // 
-      //     break;        
+     
 
-      case 1:
+      case 2:
           d3.select({}).transition()
             .duration(1500)
             .ease(d3.easeCubicInOut)//.ease(Math.sqrt)
@@ -279,7 +266,7 @@ var gs = d3.graphScroll()
           break;
           
           
-      case 2:
+      case 3:
           clear()
           drawMap(alpha = 1 )
           d3.select({}).transition()
@@ -386,8 +373,34 @@ var gs = d3.graphScroll()
 
 
       
+};
+
+
+var elem = [...document.querySelectorAll('div.pad')]
+elem.unshift(document.getElementsByClassName('container-head')[0]);
+var listen = true;
+
+// 
+// 
+document.addEventListener("wheel", function (e) {
+    e.preventDefault();
+    
+    if (listen){
+    var active = document.querySelector('div.pad.graph-scroll-active')
+    var index = elem.indexOf(active)+Math.sign(e.deltaY)
+    var target = elem[index]
+    target.scrollIntoView(true)
+    window.scrollBy(0, -0.07*innerWidth);
+    listen=false
+    setTimeout(function(){listen=true;console.log(index)}, 1500);
+        return false;
 }
 
+
+
+},{
+  passive: false
+});
 
 
 d3.select(window).on('resize', render)
