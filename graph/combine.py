@@ -31,6 +31,8 @@ cm1.columns = col
 
 nodes = pd.concat([cm,cm1])
 
+
+
 ''' 
 Get links and filter those with no information associated with them
 '''
@@ -43,10 +45,10 @@ ids = set(nodes.id.values)
 contains = [i[0] in ids and i[1] in ids for i in links.values]
 print ( 'keeping %s of results'%(sum(contains) / len(contains) ) )
 
-links = links.iloc[contains]
+links = links.iloc[contains]##links[pd.Series(contains,name='bool').values]
+print(links.shape,sum(contains))
 links.to_csv('links.csv',index=False)
-
-
+links.to_csv('links.sim',index=False,sep='\t',header=False)
 ''' 
 Filter dangling nodes
 '''
