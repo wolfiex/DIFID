@@ -1,0 +1,44 @@
+@font-face {
+    font-family: BalooDa;
+    src: url(BalooDa2-Medium.ttf);
+/* relative to stylesheet     */
+}
+
+.hiddenCanvas{
+			display: none;
+            /* position:absolute; */
+            /* padding-left:5%  */
+		}
+        
+        .mainCanvas{
+                    /* padding-left:5%  */
+        		}
+
+		div#tooltip {
+			position: absolute;        
+			display: inline-block;
+			padding: 10px;
+			font-family: 'BalooDa';
+			color: #222;
+			background-color: whitesmoke;
+			border: 1px solid #999;
+			border-radius: 2px;
+		    pointer-events: none;
+			opacity: 0;
+			z-index: 1;
+            
+            width:40%;
+            height:40%;
+            border-radius: 25px;
+            
+}            
+body{
+    background-color: whitesmoke;
+    font-family: 'BalooDa';
+}
+
+#title{
+    font-size: 20px;
+    bottom: 0;
+    position:absolute;
+}
