@@ -3,12 +3,13 @@ var width = height = Math.min(window.innerWidth,window.innerHeight)*.9;
 var halfwidth = width/2;
 // main canvas - plotting
 var mainCanvas,hiddenCanvas,context,hiddencontext,tool,title
-
+fuzzysort = fuzzysortNew()
 
 // load files
 d3.queue()
   .defer(d3.csv,'../data/doc_information.csv')// documnet info [0]
   .defer(d3.csv, '../data/tsne_results.csv')// tsnelocations
+  .defer(d3.csv, '../data/topic_info.csv')// tsnelocations
   //.defer(d3.csv, '../preprocess/nodes.csv')// node data
   .await(load)
 
@@ -21,11 +22,13 @@ function load(err,...dt){
     var toFloat = 'lon lat x y'
     data = {}
     
-    data.continents = [...new Set(dt[0].map(d=>d.continent))];
+    var basecol = 'wc__oecd'//continent
+    
+    data[basecol] = [...new Set(dt[0].map(d=>d[basecol]))];
     data.colours = 'f94144-f3722c-f8961e-f9c74f-90be6d-43aa8b-577590'.split('-').map(d=>'#'+d)
 
     
-    data.info = new Map(dt[0].map(d=>{d.c = data.colours[data.continents.indexOf(d.continent)];return [d.id,d]}))
+    data.info = new Map(dt[0].map(d=>{d.c = data.colours[data[basecol].indexOf(d[basecol])];return [d.id,d]}))
     
     // rm nodes with no information
     data.tsne = dt[1].filter(d=>data.info.has(d.doc_id)).map(d=>{
@@ -43,17 +46,10 @@ function load(err,...dt){
 
     data.tsne = data.tsne.map(d=>{d.x=data.x(d['tsne-1']),d.y=data.y(d['tsne-2']);return d})
     
-    
+    data.topics = dt[2]
 
-    
-    
-    
-    
-    
-    //data.nodes = dt[1].filter(d=>d.paper='1').map(d=>{toFloat.split(' ').forEach(e=>{d[e]=+d[e]}); return d })
-    
-    //new Map(dt[1].map(d=>[d.id,d]))
-    
+
+    data.title =[...data.info.values()].map((d,i)=>{return {title:d.title.toLowerCase(),id:d.id}})
     
     
     // set up canvas
@@ -96,8 +92,8 @@ function draw(){
         // filter here
 
 
-        var size = width/200
-        var filtered = data.tsne 
+        var size = width/400
+        var filtered = data.filtered || data.tsne 
         
         filtered.forEach(d=>{
             context.globalAlpha = .5
