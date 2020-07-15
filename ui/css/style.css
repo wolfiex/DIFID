@@ -4,6 +4,20 @@
 /* relative to stylesheet     */
 }
 
+
+// Colors
+$color-1: #2ecc71;
+$color-2: #3498db;
+$color-3: #f1c40f;
+$color-4: #e74c3c;
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #222;
+}
+
 .hiddenCanvas{
 			display: none;
             /* position:absolute; */
@@ -41,4 +55,18 @@ body{
     font-size: 20px;
     bottom: 0;
     position:absolute;
+}
+
+.logo{
+    position: absolute;
+}
+
+
+
+input[type=radio   ]:not(old):checked + label > span{
+  background-image :    -moz-linear-gradient(rgb(224,224,224),rgb(240,240,240));
+  background-image :     -ms-linear-gradient(rgb(224,224,224),rgb(240,240,240));
+  background-image :      -o-linear-gradient(rgb(224,224,224),rgb(240,240,240));
+  background-image : -webkit-linear-gradient(rgb(224,224,224),rgb(240,240,240));
+  background-image :         linear-gradient(rgb(224,224,224),rgb(240,240,240));
 }
