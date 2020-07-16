@@ -111,10 +111,10 @@ function draw(){
         console.log(diagram)
         var polygons = diagram.polygons();
         
-        // context.beginPath();
-        //  for (var i = 0, n = polygons.length; i < n; ++i) drawCell(context,polygons[i]);
-        //  context.strokeStyle = "rgba(2,2,2,0.1)";
-        //  context.stroke();        
+        context.beginPath();
+         for (var i = 0, n = polygons.length; i < n; ++i) drawCell(context,polygons[i]);
+         context.strokeStyle = "rgba(2,2,2,0.1)";
+         context.stroke();        
                         
                 
         console.log(filtered)
