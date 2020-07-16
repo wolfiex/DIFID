@@ -104,7 +104,7 @@ function draw(){
         
         
         var points = filtered.map(d=>[d.x+Math.random()*0.001,d.y])
-        window.p = points
+        /// MUST add random movement as voronoi fall over if occpying the same space. 
         console.log(points)
 
         var diagram = voronoi(points)
