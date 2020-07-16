@@ -2,8 +2,12 @@ var data ;
 var width = height = Math.min(window.innerWidth,window.innerHeight)*.9;
 var halfwidth = width/2;
 // main canvas - plotting
-var mainCanvas,hiddenCanvas,context,hiddencontext,tool,title
+var mainCanvas,hiddenCanvas,context,hiddencontext,tool,title,vornoroi
 fuzzysort = fuzzysortNew()
+
+var cmap = d3.scaleOrdinal(
+    "f9c80e-f86624-ea3546-662e9b-36e0f7-3498db".split("-").map(d => "#" + d)
+);
 
 // load files
 d3.queue()
@@ -22,7 +26,7 @@ function load(err,...dt){
     var toFloat = 'lon lat x y'
     data = {}
     
-    var basecol = 'wc__oecd'//continent
+    var basecol = 'continent'//'wc__oecd'//continent
     
     data[basecol] = [...new Set(dt[0].map(d=>d[basecol]))];
     data.colours = 'f94144-f3722c-f8961e-f9c74f-90be6d-43aa8b-577590'.split('-').map(d=>'#'+d)
@@ -51,6 +55,9 @@ function load(err,...dt){
 
     data.title =[...data.info.values()].map((d,i)=>{return {title:d.title.toLowerCase(),id:d.id}})
     
+    
+    var voronoi = d3.voronoi()
+    .extent([[-1, -1], [width + 1, height + 1]]);
     
     // set up canvas
     mainCanvas = d3.select('#container')
@@ -95,21 +102,39 @@ function draw(){
         var size = width/400
         var filtered = data.filtered || data.tsne 
         
+        
+        
+        var voronoi = d3.voronoi()
+        .extent([[-1, -1], [width + 1, height + 1]]);
+        
+        var diagram = voronoi(filtered.map(d=>[d.x,d.y])),
+            links = diagram.links(),
+            polygons = diagram.polygons();
+                
+        context.beginPath();
+         for (var i = 0, n = polygons.length; i < n; ++i) drawCell(context,polygons[i]);
+         context.strokeStyle = "rgba(2,2,2,0.1)";
+         context.stroke();        
+                        
+                
+        
         filtered.forEach(d=>{
             context.globalAlpha = .5
             context.beginPath();
             context.arc(d.x, d.y, size, 0, 2*Math.PI);
-            context.fillStyle = data.info.get(d.doc_id).c || 'black';
+            context.fillStyle = cmap(data.info.get(d.doc_id).continent) || 'black';
             context.fill();
         })
     
+        
         
         // set invisible nodes 
         data.nodeclr = {};
         
         filtered.forEach((d,i)=>{
             hiddencontext.beginPath();
-            hiddencontext.arc(d.x, d.y, width/200, 0, 2*Math.PI);
+            drawCell(hiddencontext,polygons[i]);
+            // hiddencontext.arc(d.x, d.y, width/200, 0, 2*Math.PI);
             var c = genColor(i);
             data.nodeclr[c] = d.doc_id
             hiddencontext.fillStyle = c;
@@ -179,6 +204,16 @@ function draw(){
 	}
 
 
+    function drawCell(ctx,cell) {
+      if (!cell) return false;
+      ctx.moveTo(cell[0][0], cell[0][1]);
+      for (var j = 1, m = cell.length; j < m; ++j) {
+        ctx.lineTo(cell[j][0], cell[j][1]);
+      }
+      //ctx.closePath();
+      return true;
+    }
+    
     // function for tooltip
     function genColor(i){
     		var ret = [];
@@ -201,7 +236,3 @@ function doi(x){
     
 }
 
-
-    window.addEventListener('resize', function(event){
-        window.location.reload() // just call it again...
-    })

@@ -1,17 +1,32 @@
-function openNav() {
-  document.getElementById("mySidenav").style.width = "100%";
+function openNav(x) {
+  document.getElementById(x).style.width = "100%";
 }
 
-function closeNav() {
-  document.getElementById("mySidenav").style.width = "0";
+function closeNav(x) {
+  document.getElementById(x).style.width = "0";
 }
+
+function access(x){
+    x = document.getElementById(x)
+    var state = x.getAttribute('state')||false
+    
+    console.log(x,state)
+    if (state ==='true'){
+        x.style.visibility = 'hidden'
+        x.setAttribute('state',false)
+    }else{
+        x.style.visibility = 'visible'
+        x.setAttribute('state',true)
+    }
+}
+
 
 function save(){
     var selected = new Set([...resbox.querySelectorAll("input:checked")].map(d=>d.value))
     data.filtered = data.tsne.filter(d=>selected.has(d.doc_id))
     if (data.filtered.length<1)data.filtered=undefined
     draw()
-    closeNav();
+    closeNav('mySidenav');
 }
 
 function clear(){
