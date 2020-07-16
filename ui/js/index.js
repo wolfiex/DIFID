@@ -56,7 +56,7 @@ function load(err,...dt){
     data.title =[...data.info.values()].map((d,i)=>{return {title:d.title.toLowerCase(),id:d.id}})
     
     
-    var voronoi = d3.voronoi()
+    voronoi = d3.voronoi()
     .extent([[-1, -1], [width + 1, height + 1]]);
     
     // set up canvas
@@ -103,10 +103,7 @@ function draw(){
         var filtered = data.filtered || data.tsne 
         
         
-        
-        var voronoi = d3.voronoi()
-        .extent([[-1, -1], [width + 1, height + 1]]);
-        
+
         var diagram = voronoi(filtered.map(d=>[d.x,d.y])),
             links = diagram.links(),
             polygons = diagram.polygons();
