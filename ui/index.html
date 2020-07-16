@@ -8,61 +8,25 @@
 
 <body>
 
-    <h2 id=header>EviAtlas </h2><span id='title'></span>
-
+    <h2 id=header>EviAtlas </h2>
+    <span id='title'></span>
+   
+    <svg id='countryselector' style='visibility:hidden' />
+   
     <div id="mySidenav" class="sidenav">
         <div class='head'>
             <a href="#" class="clr" onclick="clr()" style='left:30pt'>Clear</a>
             <a href="#" class="sall" onclick="sall()" style='left:30pt'>Select All</a>
             <a href="#" class="save" onclick="save()" style='left:30pt'>Save</a>
         </div>
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav('mySidenav')">&times;</a>
 
         <a href="#">
             <p> Filter by Title </p>
             <input type="search" id="titlesearch" placeholder="Search Titles Here ..."> </input>
             
             
-            
-            <div class="custom-radios">
-  <div>
-    <input type="radio" id="color-1" name="color" value="color-1" checked>
-    <label for="color-1">
-      <span>
-        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/242518/check-icn.svg" alt="Checked Icon" />
-      </span>
-    </label>
-  </div>
-  
-  <div>
-    <input type="radio" id="color-2" name="color" value="color-2">
-    <label for="color-2">
-      <span>
-        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/242518/check-icn.svg" alt="Checked Icon" />
-      </span>
-    </label>
-  </div>
-  
-  <div>
-    <input type="radio" id="color-3" name="color" value="color-3">
-    <label for="color-3">
-      <span>
-        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/242518/check-icn.svg" alt="Checked Icon" />
-      </span>
-    </label>
-  </div>
 
-  <div>
-    <input type="radio" id="color-4" name="color" value="color-4">
-    <label for="color-4">
-      <span>
-        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/242518/check-icn.svg" alt="Checked Icon" />
-      </span>
-    </label>
-  </div>
-</div>
-            
-            
             
             
             <div id='titleresults'></div>
@@ -79,7 +43,11 @@
     <div id="dataSidenav" class="sidenav"></div>
 
     <div id='sidebar'>
-        <span style="color:#333;padding-left:2.5px;font-size:30px;top:45vh;position:absolute;cursor:pointer" onclick="openNav()">   &#9776;</span>
+        <a href="#" id="Continent" onclick='access("countryselector")'>Continent</a>
+        <a href="#" id="Field">Research Field</a>
+        <a href="#" id="Year">Year</a>
+        <a href="#" id="Search">Search Title</a>
+        <span style="color:#333;padding-left:2.5px;font-size:30px;top:45vh;position:absolute;cursor:pointer" onclick="openNav('mySidenav')">   &#9776;</span>
     </div>
 
     <title>EviAtlas</title>
@@ -91,11 +59,26 @@
 
 </body>
 
-<script>
-</script>
 
 
 <script src="js/d3.v4.min.js"></script>
 <script src="js/sidebar.js"></script>
 <script src="js/fuzzysort.js"></script>
 <script src="js/index.js"></script>
+
+
+<script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+<script src="https://unpkg.com/topojson-client@3"></script>
+<script src="js/select_country.js"></script>
+
+<script>
+    
+    window.scroll(0,0)
+    document.body.onload = function(){
+        window.scroll(0,0)
+        window.addEventListener('resize', function(event){
+            window.location.reload() // just call it again...
+        })
+    }
+</script>
+

@@ -106,71 +106,43 @@ b{
 
 
 
-
-
-
-html, body {
-  height: 100%;
-  width: 100%;
-  margin: 0;
+/* Style the links inside the sidenav */
+#sidebar a {
+  position: absolute; /* Position them relative to the browser window */
+  right: -180px; /* Position them outside of the screen */
+  transition: 0.3s; /* Add transition on hover */
+  padding: 12px; /* 15px padding */
+  padding-left: 40px;
+  padding-right: 0px;
+  width: 180px; /* Set a specific width */
+  text-decoration: none; /* Remove underline */
+  font-size: 20px; /* Increase font size */
+  color: white; /* White text color */
+  float:right;
+  border-radius: 15px 5px 5px 5px; /* Rounded corners on the top right and bottom right side */
 }
 
+#sidebar a:hover {
+  right: -19; /* On mouse-over, make the elements appear as they should */
+}
 
+/* The about link: 20px from the top with a green background */
+#Continent {
+  top: 20px;
+  background-color:#2ecc71;
+}
 
-.custom-radios {
-  
-  div {
-    display: inline-block;
-  }
+#Year {
+  top: 80px;
+  background-color: #3498db; /* Blue */
+}
 
-  input[type="radio"] {
-    display: none;
+#Field {
+  top: 140px;
+  background-color: #f1c40f; /* Red */
+}
 
-    + label {
-      color: #333;
-      font-family: Arial, sans-serif;
-      font-size: 14px;
-
-      span {
-        display: inline-block;
-        width: 40px;
-        height: 40px;
-        margin: -1px 4px 0 0;
-        vertical-align: middle;
-        cursor: pointer;
-        border-radius: 50%;
-        border: 2px solid #FFFFFF;
-        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.33);
-        background-repeat: no-repeat;
-        background-position: center;
-        text-align: center;
-        line-height: 44px;
-    
-        img {
-          opacity: 0;
-          transition: all .3s ease;
-        }
-      }
-    }
-
-    &#color-1 + label span {
-      background-color: $color-1;
-    }
-
-    &#color-2 + label span {
-      background-color: $color-2;
-    }
-
-    &#color-3 + label span {
-      background-color: $color-3;
-    }
-
-    &#color-4 + label span {
-      background-color: $color-4;
-    }
-
-    &:checked + label span img {
-      opacity: 1;
-    }
-  }
+#Search{
+  top: 200px;
+  background-color: #e74c3c /* Light Black */
 }

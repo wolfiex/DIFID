@@ -5,18 +5,18 @@
 }
 
 
-// Colors
-$color-1: #2ecc71;
-$color-2: #3498db;
-$color-3: #f1c40f;
-$color-4: #e74c3c;
-
-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #222;
+body{
+    /* background-color: whitesmoke; */
+    font-family: 'BalooDa';
+    /* //display: flex; */
+    justify-content: center;
+    align-items: center;
+    color:whitesmoke;
+    overflow-x:hidden;
+    
 }
+
+
 
 .hiddenCanvas{
 			display: none;
@@ -33,7 +33,7 @@ body {
 			display: inline-block;
 			padding: 10px;
 			font-family: 'BalooDa';
-			color: #222;
+			color: #111;
 			background-color: whitesmoke;
 			border: 1px solid #999;
 			border-radius: 2px;
@@ -46,15 +46,21 @@ body {
             border-radius: 25px;
             
 }            
-body{
-    background-color: whitesmoke;
-    font-family: 'BalooDa';
-}
+
+#header{
+    position:absolute;
+    bottom:10;
+right:10px;
+color:#222;}
+
+
 
 #title{
     font-size: 20px;
-    bottom: 0;
+    top: 0;
+    left:0;
     position:absolute;
+    color:#222;
 }
 
 .logo{
@@ -69,4 +75,17 @@ input[type=radio   ]:not(old):checked + label > span{
   background-image :      -o-linear-gradient(rgb(224,224,224),rgb(240,240,240));
   background-image : -webkit-linear-gradient(rgb(224,224,224),rgb(240,240,240));
   background-image :         linear-gradient(rgb(224,224,224),rgb(240,240,240));
+}
+
+
+
+
+
+
+
+
+#countryselector{
+    position:absolute;
+    width:100vw;
+    height:100vh;
 }
