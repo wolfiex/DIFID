@@ -83,9 +83,8 @@ function load(err,...dt){
     
     
     draw()
-    
-    data.topology = dt[3]
     console.log(dt,data)
+    data.topology = dt[3]
     draw_world(dt[3])
     
     console.log('data loaded')
