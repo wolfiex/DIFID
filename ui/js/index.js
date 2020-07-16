@@ -104,6 +104,8 @@ function draw(){
         
         
         var points = filtered.map(d=>[d.x,d.y])
+        
+        console.log(points)
 
         var diagram = voronoi(points)
         console.log(diagram)
