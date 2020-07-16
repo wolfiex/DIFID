@@ -105,17 +105,17 @@ function draw(){
         var filtered = data.filtered || data.tsne 
         
         
-        var points = filtered.map(d=>[d.x,d.y])
-        console.log(points)
-        var diagram = voronoi(points)
-        console.log(diagram)
-        var links = diagram.links(),
-            polygons = diagram.polygons();
-                
-        context.beginPath();
-         for (var i = 0, n = polygons.length; i < n; ++i) drawCell(context,polygons[i]);
-         context.strokeStyle = "rgba(2,2,2,0.1)";
-         context.stroke();        
+        // var points = filtered.map(d=>[d.x,d.y])
+        // console.log(points)
+        // var diagram = voronoi(points)
+        // console.log(diagram)
+        // var links = diagram.links(),
+        //     polygons = diagram.polygons();
+        // 
+        // context.beginPath();
+        //  for (var i = 0, n = polygons.length; i < n; ++i) drawCell(context,polygons[i]);
+        //  context.strokeStyle = "rgba(2,2,2,0.1)";
+        //  context.stroke();        
                         
                 
         
@@ -134,7 +134,7 @@ function draw(){
         
         filtered.forEach((d,i)=>{
             hiddencontext.beginPath();
-            drawCell(hiddencontext,polygons[i]);
+            //drawCell(hiddencontext,polygons[i]);
             // hiddencontext.arc(d.x, d.y, width/200, 0, 2*Math.PI);
             var c = genColor(i);
             data.nodeclr[c] = d.doc_id
