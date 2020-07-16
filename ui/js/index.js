@@ -118,7 +118,7 @@ function draw(){
         //  context.stroke();        
                         
                 
-        
+        console.log(filtered)
         filtered.forEach(d=>{
             context.globalAlpha = .5
             context.beginPath();
