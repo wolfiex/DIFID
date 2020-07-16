@@ -318,7 +318,7 @@ var gs = d3.graphScroll()
               
             break;        
 
-        case 2:
+        case 1:
             console.log(1)
             clear()
             drawMap(alpha = 1 )
@@ -328,7 +328,7 @@ var gs = d3.graphScroll()
               .tween("facepts", plot_points);
             
             break;
-        case 3:
+        case 2:
             console.log(2)
             clear()
             drawMap(alpha = 1 )
