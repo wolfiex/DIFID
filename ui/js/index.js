@@ -2,7 +2,8 @@ var data ;
 var width = height = Math.min(window.innerWidth,window.innerHeight)*.9;
 var halfwidth = width/2;
 // main canvas - plotting
-var mainCanvas,hiddenCanvas,context,hiddencontext,tool,title,vornoroi
+var mainCanvas,hiddenCanvas,context,hiddencontext,tool,title
+var voronoi = d3.voronoi().extent([[-1, -1], [width + 1, height + 1]]);
 fuzzysort = fuzzysortNew()
 
 var cmap = d3.scaleOrdinal(
@@ -56,8 +57,6 @@ function load(err,...dt){
     data.title =[...data.info.values()].map((d,i)=>{return {title:d.title.toLowerCase(),id:d.id}})
     
     
-    voronoi = d3.voronoi()
-    .extent([[-1, -1], [width + 1, height + 1]]);
     
     // set up canvas
     mainCanvas = d3.select('#container')
@@ -104,8 +103,9 @@ function draw(){
         
         
         var points = filtered.map(d=>[d.x,d.y])
-        var diagram = voronoi(points),
-            links = diagram.links(),
+        var diagram = voronoi(points)
+        
+        var links = diagram.links(),
             polygons = diagram.polygons();
                 
         context.beginPath();
