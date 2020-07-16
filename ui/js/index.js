@@ -105,13 +105,12 @@ function draw(){
         var filtered = data.filtered || data.tsne 
         
         
-        // var points = filtered.map(d=>[d.x,d.y])
-        // console.log(points)
-        // var diagram = voronoi(points)
-        // console.log(diagram)
-        // var links = diagram.links(),
-        //     polygons = diagram.polygons();
-        // 
+        var points = filtered.map(d=>[d.x,d.y])
+
+        var diagram = voronoi(points)
+        console.log(diagram)
+        var polygons = diagram.polygons();
+        
         // context.beginPath();
         //  for (var i = 0, n = polygons.length; i < n; ++i) drawCell(context,polygons[i]);
         //  context.strokeStyle = "rgba(2,2,2,0.1)";
