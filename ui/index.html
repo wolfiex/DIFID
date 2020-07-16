@@ -8,11 +8,11 @@
 
 <body>
 
-    <h2 id=header>EviAtlas </h2>
+    <h2 id=header class='logo'>EviAtlas </h2>
     <span id='title'></span>
-   
+
     <svg id='countryselector' style='visibility:hidden' />
-   
+
     <div id="mySidenav" class="sidenav">
         <div class='head'>
             <a href="#" class="clr" onclick="clr()" style='left:30pt'>Clear</a>
@@ -24,11 +24,11 @@
         <a href="#">
             <p> Filter by Title </p>
             <input type="search" id="titlesearch" placeholder="Search Titles Here ..."> </input>
-            
-            
 
-            
-            
+
+
+
+
             <div id='titleresults'></div>
 
         </a>
@@ -72,13 +72,11 @@
 <script src="js/select_country.js"></script>
 
 <script>
-    
-    window.scroll(0,0)
-    document.body.onload = function(){
-        window.scroll(0,0)
-        window.addEventListener('resize', function(event){
+    window.scroll(0, 0)
+    document.body.onload = function() {
+        window.scroll(0, 0)
+        window.addEventListener('resize', function(event) {
             window.location.reload() // just call it again...
         })
     }
 </script>
-
