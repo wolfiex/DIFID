@@ -855,9 +855,6 @@ USAGE:
     };
     var q = fastpriorityqueue(); // reuse this, except for async, it needs to make its own
 
-    module.exports = {
-      fuzzysort: fuzzysortNew(),
-    };
 
 
 
