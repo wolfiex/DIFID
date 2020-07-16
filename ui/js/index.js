@@ -103,7 +103,7 @@ function draw(){
         var filtered = data.filtered || data.tsne 
         
         
-        var points = filtered.map(d=>[d.x+Math.random()*0.001,d.y]).filter(d=>d[0]+d[1])
+        var points = filtered.map(d=>[d.x+Math.random()*0.001,d.y])
         window.p = points
         console.log(points)
 
