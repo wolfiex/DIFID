@@ -105,10 +105,7 @@ function draw(){
         
         var points = filtered.map(d=>[d.x+Math.random()*0.001,d.y])
         /// MUST add random movement as voronoi fall over if occpying the same space. 
-        console.log(points)
-
         var diagram = voronoi(points)
-        console.log(diagram)
         var polygons = diagram.polygons();
         
         context.beginPath();
@@ -116,8 +113,6 @@ function draw(){
          context.strokeStyle = "rgba(2,2,2,0.1)";
          context.stroke();        
                         
-                
-        console.log(filtered)
         filtered.forEach(d=>{
             context.globalAlpha = .5
             context.beginPath();
