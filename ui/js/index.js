@@ -83,7 +83,7 @@ function load(err,...dt){
     
     
     draw()
-    
+    draw_world()
     
     console.log('data loaded')
 }

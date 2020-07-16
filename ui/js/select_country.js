@@ -2,7 +2,7 @@
 
 var continentmap = {"South America":"SA","Oceania":"OC","North America":"NA","Europe":"EU","Asia":"AS","Africa":"AF"}
 
-
+function draw_world(){
 
 var graticule = d3.geoGraticule();
 var svg = d3.select("#countryselector").append("svg");
@@ -75,6 +75,8 @@ d3.json("continents.geojson", function(error, topology) {
             return continents[i].properties.continent;
         });
 });
+
+}
 
 function clist (t){
     
