@@ -30,8 +30,7 @@ svg
     .attr("d", path);
 
 //d3.json("continents.geojson", function(error, topology) {
-    var continents = topojson.feature(topology, topology.objects.continent)
-        .features;
+    var continents = topojson.feature(data.topology, data.topology.objects.continent).features;
         
     console.log(continents)
 
