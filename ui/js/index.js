@@ -24,7 +24,7 @@ d3.queue()
 
 
 function load(err,...dt){
-    
+    console.log('Loading...')
     var toFloat = 'lon lat x y'
     data = {}
     
@@ -106,6 +106,7 @@ function draw(){
         
         
         var points = filtered.map(d=>[d.x,d.y])
+        console.log(points)
         var diagram = voronoi(points)
         
         var links = diagram.links(),
