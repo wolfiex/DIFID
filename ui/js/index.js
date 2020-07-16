@@ -83,8 +83,6 @@ function load(err,...dt){
     
     
     draw()
-    console.log(dt,data)
-    data.topology = dt[3]
     draw_world(dt[3])
     
     console.log('data loaded')
@@ -133,7 +131,7 @@ function draw(){
         
         filtered.forEach((d,i)=>{
             hiddencontext.beginPath();
-            //drawCell(hiddencontext,polygons[i]);
+            drawCell(hiddencontext,polygons[i]);
             // hiddencontext.arc(d.x, d.y, width/200, 0, 2*Math.PI);
             var c = genColor(i);
             data.nodeclr[c] = d.doc_id
