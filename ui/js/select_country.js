@@ -11,11 +11,11 @@ svg.attr("width", "100%").attr("height", "100%")
 var g = svg.append("g");
 
 //https://bl.ocks.org/mbostock/3710082
-var projection = (projection = d3
+var projection = d3
     .geoPeirceQuincuncial()
     .fitSize([width, height], { type: "Sphere" })
     .rotate([20, -90, 45])
-    .precision(0.1));
+    .precision(0.1);
 
 var path = d3.geoPath().projection(projection);
 
