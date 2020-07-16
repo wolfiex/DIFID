@@ -2,7 +2,7 @@
 
 var continentmap = {"South America":"SA","Oceania":"OC","North America":"NA","Europe":"EU","Asia":"AS","Africa":"AF"}
 
-function draw_world(){
+function draw_world(topology){
 
 var graticule = d3.geoGraticule();
 var svg = d3.select("#countryselector").append("svg");
@@ -29,7 +29,7 @@ svg
     .attr("opacity", 0.13)
     .attr("d", path);
 
-d3.json("continents.geojson", function(error, topology) {
+//d3.json("continents.geojson", function(error, topology) {
     var continents = topojson.feature(topology, topology.objects.continent)
         .features;
         
@@ -74,7 +74,7 @@ d3.json("continents.geojson", function(error, topology) {
         .text(function(d, i) {
             return continents[i].properties.continent;
         });
-});
+//});
 
 }
 

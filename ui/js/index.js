@@ -15,6 +15,7 @@ d3.queue()
   .defer(d3.csv,'../data/doc_information.csv')// documnet info [0]
   .defer(d3.csv, '../data/tsne_results.csv')// tsnelocations
   .defer(d3.csv, '../data/topic_info.csv')// tsnelocations
+  .defer(d3.json,"continents.geojson")
   //.defer(d3.csv, '../preprocess/nodes.csv')// node data
   .await(load)
 
@@ -82,7 +83,8 @@ function load(err,...dt){
     
     
     draw()
-    draw_world()
+    
+    draw_world(dt[3])
     
     console.log('data loaded')
 }
