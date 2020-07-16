@@ -103,8 +103,8 @@ function draw(){
         var filtered = data.filtered || data.tsne 
         
         
-
-        var diagram = voronoi(filtered.map(d=>[d.x,d.y])),
+        var points = filtered.map(d=>[d.x,d.y])
+        var diagram = voronoi(points),
             links = diagram.links(),
             polygons = diagram.polygons();
                 
