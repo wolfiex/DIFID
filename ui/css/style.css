@@ -5,6 +5,8 @@
 }
 
 
+
+
 body{
     /* background-color: whitesmoke; */
     font-family: 'BalooDa';
@@ -12,11 +14,23 @@ body{
     justify-content: center;
     align-items: center;
     color:whitesmoke;
-    overflow-x:hidden;
+    overflow-x:
+    hidden;
+    overflow-y:hidden;
     
 }
 
 
+svg#overlay{
+    position:absolute;
+    display:inline-block;
+    pointer-events: none;
+    right:0;
+    left: 0;
+    width:100vw;
+    height:100vh;
+    
+}
 
 .hiddenCanvas{
 			display: none;
@@ -27,6 +41,15 @@ body{
 .mainCanvas{
                     /* padding-left:5%  */
         		}
+
+div canvas, div svg{ 
+display:block;
+margin-left: auto;
+margin-right: auto;
+
+}
+
+
 
 div#tooltip {
 			position: absolute;        
@@ -81,10 +104,22 @@ input[type=radio   ]:not(old):checked + label > span{
 
 
 
+.annotation-note-label tspan {
+    dy:0;
+}
+.annotation-note-title{
+    display:none
+}
 
+.annotation-group text{
+    stroke-width:1px!important;
+}
 
-
-
+.hilight{
+    color:rgb(232, 51, 109)!important;
+    stroke:rgb(232, 51, 109);
+    stroke-width:2.4px;
+}
 
 #countryselector{
     position:absolute;
