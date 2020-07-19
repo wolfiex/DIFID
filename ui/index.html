@@ -15,7 +15,9 @@
     <span id='title'></span>
 
     <svg id='countryselector' style='visibility:hidden' />
-
+    
+    
+    
     <div id="mySidenav" class="sidenav">
         <div class='head'>
             <a href="#" class="clr" onclick="clr()" style='left:30pt'>Clear</a>
@@ -28,10 +30,6 @@
             <p> Filter by Title </p>
             <input type="search" id="titlesearch" placeholder="Search Titles Here ..."> </input>
 
-
-
-
-
             <div id='titleresults'></div>
 
         </a>
@@ -40,10 +38,14 @@
       <a href="#">Contact</a> -->
     </div>
 
-
+    
+    
+            
+                
 
 
     <div id="dataSidenav" class="sidenav"></div>
+
 
     <div id='sidebar'>
         <a href="#" id="Continent" onclick='access("countryselector")'>Continent</a>
@@ -53,12 +55,20 @@
         <span style="color:#333;padding-left:2.5px;font-size:30px;top:45vh;position:absolute;cursor:pointer" onclick="openNav('mySidenav')">   &#9776;</span>
     </div>
     
-
-    <title>EviAtlas</title>
+    <div id="world" style="width: 100vw; height: 100vh"></div>
+    
+            
+    <title>DIFID Evidence Atlas</title>
     <author D.Ellis></author>
+    <institution CEMAC - Leeds></institution>
     <div id="container"></div>
-    <div id="tooltip"></div>
+    
+    
+    
 
+    <div id="tooltip"></div>
+    
+    
     <!-- em calc div  -->
 <div id="div" style="height:0;width:0;outline:none;border:none;padding:none;margin:none;box-sizing:content-box;"></div>
 
@@ -66,17 +76,28 @@
 
 
 
+<link rel="stylesheet" href="https://d19vzq90twjlae.cloudfront.net/leaflet-0.7/leaflet.css" />
+<script src="https://d19vzq90twjlae.cloudfront.net/leaflet-0.7/leaflet.js"></script>
+<script src="js/drawmap.js"></script>
 <script src="js/d3.v4.min.js"></script>
 <script src="js/sidebar.js"></script>
 <script src="js/fuzzysort.js"></script>
 <script src="js/annotate.js"></script>
+<script src="js/legend.js"></script>
+<script src="js/label.js"></script>
+<script src="js/mouseevents.js"></script>
 <script src="js/index.js"></script>
+
 
 
 <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
 <script src="https://unpkg.com/topojson-client@3"></script>
 <script src="js/select_country.js"></script>
 
+
+
+
+    
 <script>
     window.scroll(0, 0)
     document.body.onload = function() {

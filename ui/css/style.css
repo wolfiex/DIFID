@@ -34,12 +34,15 @@ svg#overlay{
 
 .hiddenCanvas{
 			display: none;
+            z-index:9999; 
             /* position:absolute; */
             /* padding-left:5%  */
+            position:relative;
 		}
         
-.mainCanvas{
-                    /* padding-left:5%  */
+.mainCanvas{ /* padding-left:5%  */
+    z-index: 999; 
+    position:relative;
         		}
 
 div canvas, div svg{ 
@@ -120,9 +123,26 @@ input[type=radio   ]:not(old):checked + label > span{
     stroke:rgb(232, 51, 109);
     stroke-width:2.4px;
 }
+#world{
+    position:absolute;
+    width:10vw;
+    height:10vh;
+    display:inline;
+     z-index: 1; 
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+}
+#world:after{
+    cursor: pointer;
+content:"";
+}
 
 #countryselector{
     position:absolute;
     width:100vw;
     height:100vh;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
