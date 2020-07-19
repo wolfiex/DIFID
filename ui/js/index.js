@@ -1,3 +1,11 @@
+
+var em;
+var div = document.getElementById('div');
+div.style.height = '1em';
+em = div.offsetHeight 
+
+
+
 var data ;
 var width = height = Math.min(window.innerWidth,window.innerHeight)*.9;
 var halfwidth = width/2;
@@ -15,7 +23,8 @@ d3.queue()
   .defer(d3.csv,'../data/doc_information.csv')// documnet info [0]
   .defer(d3.csv, '../data/tsne_results.csv')// tsnelocations
   .defer(d3.csv, '../data/topic_info.csv')// tsnelocations
-  .defer(d3.json,"continents.geojson")
+  .defer(d3.csv, '../data/label_tsne.csv')//labelloc
+  //.defer(d3.json,"../continents.geojson")
   //.defer(d3.csv, '../preprocess/nodes.csv')// node data
   .await(load)
 
@@ -24,7 +33,7 @@ d3.queue()
 
 
 function load(err,...dt){
-    console.log('Loading...')
+    console.log('Loading...',dt)
     var toFloat = 'lon lat x y'
     data = {}
     
@@ -53,6 +62,12 @@ function load(err,...dt){
     data.tsne = data.tsne.map(d=>{d.x=data.x(d['tsne-1']),d.y=data.y(d['tsne-2']);return d})
     
     data.topics = dt[2]
+    
+    
+    var hw = width/2.0
+    data.labels = dt[3].map(d=>{d.x = d.cx=data.x(d['tsne-1']),d.y=d.cy=data.y(d['tsne-2']);  d.left=d.x<hw ;  return d}).sort(function(x, y){
+   return d3.ascending(x.y, y.y);
+})
 
 
     data.title =[...data.info.values()].map((d,i)=>{return {title:d.title.toLowerCase(),id:d.id}})
@@ -83,8 +98,41 @@ function load(err,...dt){
     
     
     draw()
-    draw_world(dt[3])
+    //draw_world(dt[3])
     
+    
+    d3.select('canvas').call(d3.zoom()
+        .scaleExtent([1, 8]).translateExtent([[0, 0], [width, height]])
+            .extent([[0, 0], [width, height]])
+        .on("zoom", () => zoomed(d3.event.transform)))
+        
+        ;
+
+    function zoomed(transform) {
+        
+      d3.selectAll('.annotation-group').remove()
+      context.save();
+      context.clearRect(0, 0, width, height);
+      context.translate(transform.x, transform.y);
+      context.scale(transform.k, transform.k);
+      
+      hiddencontext.save();
+      hiddencontext.clearRect(0, 0, width, height);
+     
+      hiddencontext.translate(transform.x, transform.y); 
+      hiddencontext.scale(transform.k, transform.k);
+
+      data.zoom =  (1/transform.k)**.5||1      
+      draw()
+      window.scroll(0,0)
+      context.restore();
+      hiddencontext.restore()
+    }
+
+    zoomed(d3.zoomIdentity);
+
+    // 
+    // label()
     console.log('data loaded')
 }
     
@@ -113,14 +161,22 @@ function draw(){
          context.strokeStyle = "rgba(2,2,2,0.1)";
          context.stroke();        
                         
+        var keys = []
         filtered.forEach(d=>{
             context.globalAlpha = .5
             context.beginPath();
-            context.arc(d.x, d.y, size, 0, 2*Math.PI);
-            context.fillStyle = cmap(data.info.get(d.doc_id).continent) || 'black';
+            context.arc(d.x, d.y, size*data.zoom, 0, 2*Math.PI);
+            
+            var item = data.info.get(d.doc_id)['continent'];
+            keys.push(item)
+            context.fillStyle = cmap(item) || 'black';
+            
             context.fill();
+            
         })
     
+        legend([...new Set(keys)],cmap)
+        
         
         
         // set invisible nodes 
@@ -157,10 +213,8 @@ function draw(){
     		var colKey = 'rgb(' + col[0] + ',' + col[1] + ',' + col[2] + ')';
     		var nodeData = data.nodeclr[colKey];
     		try{
-                var doc = data.info.get(''+nodeData)
-                
+                var doc = data.info.get(''+nodeData)                
                 title.text(doc.title)
-                
     			// tool
     			// 	.style('opacity', 0.98)
     			// 	.style('top', d3.event.pageY < halfwidth ? halfwidth:0)
@@ -168,8 +222,7 @@ function draw(){
                 //     //.style('left', d3.event.pageX + 5 + 'px')
     			// 	.html('Name: ' + doc.title + '<br>' + 'Content: ' + doc + '<br>' );
     		} catch(e) {
-    			tool
-    				.style('opacity', 0);
+    			tool.style('opacity', 0);
     		}
 
     	})
@@ -180,7 +233,6 @@ function draw(){
             var mouseX = d3.event.layerX || d3.event.offsetX;
             var mouseY = d3.event.layerY || d3.event.offsety;
 
-            
             var col = hiddencontext.getImageData(mouseX, mouseY, 1, 1).data;
             var colKey = 'rgb(' + col[0] + ',' + col[1] + ',' + col[2] + ')';
             var nodeData = data.nodeclr[colKey];
@@ -192,6 +244,10 @@ function draw(){
             }
 
         })
+        
+        
+        
+  
         
         
         
@@ -231,3 +287,131 @@ function doi(x){
     
 }
 
+
+function legend(keys,color){
+    //console.log(keys,color)
+    var keys = keys.filter(d=>d)
+    var s = d3.select("#overlay")
+    
+    d3.selectAll('.legend').remove()
+
+// Add one dot in the legend for each name.
+s.selectAll("ldot")
+  .data(keys)
+  .enter()
+  .append("circle")
+  .classed('legend',true)
+    .attr("cx", 20)
+    .attr("cy", function(d,i){ return 30 + i*25}) // 100 is where the first dot appears. 25 is the distance between dots
+    .attr("r", 3)
+    .style('float','right')
+    .style("fill", function(d){ return color(d)})
+
+// Add one dot in the legend for each name.
+s.selectAll("llab")
+  .data(keys)
+  .enter()
+  .append("text")
+   .classed('legend',true)
+    .attr("x",30)
+    .attr("y", function(d,i){ return 30 + i*25}) // 100 is where the first dot appears. 25 is the distance between dots
+    .style("fill", function(d){ return color(d)})
+    .text(function(d){ return d})
+    .attr("text-anchor", "left")
+    .style("alignment-baseline", "middle")
+    
+    
+    
+}
+
+
+function label(){       
+    if (d3.select('.annotation-group').node()!=null){
+        return d3.select('.annotation-group').remove()
+        
+    }
+    
+    
+    const type = d3.annotationCalloutCircle
+
+    var shift = d3.select('canvas').node().getBoundingClientRect()
+
+
+    var left = data.labels.filter(d=>d.left)
+    var right = data.labels.filter(d=>!d.left)
+    window.l = left
+    window.r = right
+
+    var lh = height/(em*left.length)
+    var rh = height/(em*right.length)
+    console.log(rh,lh)
+    
+    var lc = 1
+    var rc = 1
+            
+            console.log('dh')
+            
+            var annotations = data.labels.map(d=>{
+                
+                if (d.left){
+                    var dh = lc*lh*em
+                    lc+=1
+                }else{
+                    var dh = rc*rh*em
+                    rc+=1
+                }
+                
+                return { note: {
+                    title:'32',
+                    label: d.label,
+                    bgPadding:0,
+                    align:!d.left?"left":'right',
+                  },
+                  //can use x, y directly instead of data
+                  data: { },
+                     x:d.cx+shift.x, y:d.cy+shift.y,                  
+                         ny: dh,//d.cy,
+                         nx: d.left?shift.x - 80:80+shift.width+shift.x,  
+                  
+                  className: "show-bg",
+
+                  subject: {
+                    radius: 4
+                  },
+              }
+              
+              
+            })
+
+
+            var me = data.labels[2]
+            console.log(me.x,me.cx,me.y,me.cy)
+
+
+        const makeAnnotations = d3.annotation()
+          .editMode(false)
+          .notePadding(1.01)
+          .type(type)
+          .accessors({})
+          .annotations(annotations)
+
+
+        d3.select("#overlay")
+          .append("g")
+          .attr("class", "annotation-group")
+          .call(makeAnnotations)
+
+    // d3.selectAll('.annotation-note-label tspan').attr('dy','1.8em')
+    d3.selectAll('.annotation-connector').attr('opacity',.6)
+    d3.selectAll('.annotation-note-label')
+    .style('pointer-events','auto')
+    .on('mouseover',function(){
+        var p = d3.select(this);
+        [...p.node().parentElement.parentElement.parentElement.querySelectorAll('path, text')].forEach(d=>{d3.select(d).classed('hilight',true)})
+    })
+    .on('mouseout',function(){
+        var p = d3.select(this);
+        [...p.node().parentElement.parentElement.parentElement.querySelectorAll('*')].forEach(d=>{d3.select(d).classed('hilight',false)})
+    })
+    // 
+}

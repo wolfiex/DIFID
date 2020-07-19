@@ -8,7 +8,10 @@
 
 <body>
 
-    <h2 id=header class='logo'>EviAtlas </h2>
+    
+    <svg id = 'overlay'></svg>
+
+    <h2 id=header class='logo'>EviMapping </h2>
     <span id='title'></span>
 
     <svg id='countryselector' style='visibility:hidden' />
@@ -45,17 +48,19 @@
     <div id='sidebar'>
         <a href="#" id="Continent" onclick='access("countryselector")'>Continent</a>
         <a href="#" id="Field">Research Field</a>
-        <a href="#" id="Year">Year</a>
+        <a href="#" id="Label" onclick='label()'>Draw Labels</a>
         <a href="#" id="Search">Search Title</a>
         <span style="color:#333;padding-left:2.5px;font-size:30px;top:45vh;position:absolute;cursor:pointer" onclick="openNav('mySidenav')">   &#9776;</span>
     </div>
+    
 
     <title>EviAtlas</title>
     <author D.Ellis></author>
     <div id="container"></div>
     <div id="tooltip"></div>
 
-
+    <!-- em calc div  -->
+<div id="div" style="height:0;width:0;outline:none;border:none;padding:none;margin:none;box-sizing:content-box;"></div>
 
 </body>
 
@@ -64,6 +69,7 @@
 <script src="js/d3.v4.min.js"></script>
 <script src="js/sidebar.js"></script>
 <script src="js/fuzzysort.js"></script>
+<script src="js/annotate.js"></script>
 <script src="js/index.js"></script>
 
 
