@@ -67,8 +67,8 @@ os.system('rm infomap.tree ; infomap infomap.csv . ')
 # note columns are shifted one but that does not affect us
 groups = pd.read_csv('infomap.tree', header=7,delimiter=' ').set_index('name') 
 
+nodes['name'] = [groups['#'].loc[i] for i in nodes.id ]
 nodes['infomap'] = [groups['#'].loc[i].split(':')[0] for i in nodes.id ]
-
 
 
 nodes.to_csv('nodes.csv',index=False)
@@ -77,11 +77,13 @@ print(nodes)
 '''
 Categories of Topics
 '''
-topics = nodes.drop(list(set(links.source))).sort_values('infomap')['id label infomap'.split()]
-topics.index=range(len(topics))   
+topics = nodes.drop(list(set(links.source))).sort_values('infomap')['id label infomap name'.split()]
+topics.index=range(len(topics)) 
+  
 print(topics)
 
 topics.to_csv('topic_hierarchy.csv',index=False)
+topics.T.to_json('topic_hierarchy.json')
    
 
 

@@ -5,7 +5,10 @@ div.style.height = "1em";
 em = div.offsetHeight;
 
 var data;
-var width = (height = Math.min(window.innerWidth, window.innerHeight) * 0.9);
+var width = height = d3.min([window.innerWidth, window.innerHeight-40,window.innerWidth-300])
+
+if (width<200){alert('window size too small, please enlarge this!')}
+
 var halfwidth = width / 2;
 // main canvas - plotting
 var mainCanvas, hiddenCanvas, context, hiddencontext, tool, title;
@@ -56,7 +59,7 @@ function load(err, ...dt) {
         return d;
     });
 
-    data.carto=true
+    data.carto=false
     // limits for scale fn
     data.x = d3
         .scaleLinear()

@@ -14,7 +14,9 @@
     <h2 id=header class='logo'>EviMapping </h2>
     <span id='title'></span>
 
-    <svg id='countryselector' style='visibility:hidden' />
+    <svg id='countryselector' style='visibility:hidden' >
+        
+    </svg>
     
     
     
@@ -48,10 +50,11 @@
 
 
     <div id='sidebar'>
-        <a href="#" id="Continent" onclick='access("countryselector")'>Continent</a>
-        <a href="#" id="Field">Research Field</a>
-        <a href="#" id="Label" onclick='label()'>Draw Labels</a>
-        <a href="#" id="Search">Search Title</a>
+        <a href="#" id="L1" onclick='switchview()'> World View </a>
+        <a href="topics.svg" id="L3">Research Field</a>
+        <a href="#" id="L2" onclick='label()'>Draw Labels</a>
+        <a href="#" id="L4" onclick='access("countryselector")'>Continent Filter</a>
+        
         <span style="color:#333;padding-left:2.5px;font-size:30px;top:45vh;position:absolute;cursor:pointer" onclick="openNav('mySidenav')">   &#9776;</span>
     </div>
     
@@ -86,13 +89,15 @@
 <script src="js/legend.js"></script>
 <script src="js/label.js"></script>
 <script src="js/mouseevents.js"></script>
-<script src="js/index.js"></script>
-
-
 
 <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
 <script src="https://unpkg.com/topojson-client@3"></script>
 <script src="js/select_country.js"></script>
+
+<script src="js/index.js"></script>
+
+
+
 
 
 

@@ -1,7 +1,8 @@
 
 function label(){  
-    data.carto = false;
-    draw()     
+    
+    
+    if (data.carto){switchview()}
     if (d3.select('.annotation-group').node()!=null){
         return d3.select('.annotation-group').remove()
         
@@ -15,17 +16,12 @@ function label(){
 
     var left = data.labels.filter(d=>d.left)
     var right = data.labels.filter(d=>!d.left)
-    window.l = left
-    window.r = right
 
     var lh = height/(em*left.length)
     var rh = height/(em*right.length)
-    console.log(rh,lh)
-    
+
     var lc = 1
     var rc = 1
-            
-            console.log('dh')
             
             var annotations = data.labels.map(d=>{
                 
@@ -61,20 +57,19 @@ function label(){
 
 
             var me = data.labels[2]
-            console.log(me.x,me.cx,me.y,me.cy)
 
 
         const makeAnnotations = d3.annotation()
           .editMode(false)
           .notePadding(1.01)
           .type(type)
-          .accessors({})
+          .accessors({}) 
           .annotations(annotations)
-
 
         d3.select("#overlay")
           .append("g")
-          .attr("class", "annotation-group")
+          .attr("class", "annotation-group")  
+          .style('opacity',0)
           .call(makeAnnotations)
 
     // d3.selectAll('.annotation-note-label tspan').attr('dy','1.8em')
@@ -90,4 +85,7 @@ function label(){
         [...p.node().parentElement.parentElement.parentElement.querySelectorAll('*')].forEach(d=>{d3.select(d).classed('hilight',false)})
     })
     // 
+    
+    fadein([".annotation-group"],duration=2700)
+    
 }
