@@ -1,71 +1,71 @@
-id,label,infomap
-210997,"Exposure, Exposure to pollution",1
-211031,"Respiratory, Respiratory & cardiovascular",1
-211005,"Hospital, Hospital admissions",1
-211029,"Death, Excess deaths",1
-211033,"Temperature, Ambient temperature",1
-211062,"Statistics, Statistical lag",1
-211054,"CVD, Cardiovascular disease",1
-211048,"Association, Statistical association",1
-211046,"Cold, Cold spells",1
-211003,"Mortality, Mortality",1
-211040,"Daily, Daily data & trends",1
-211027,"Risk, Risk",1
-211023,"Extreme weather, Extreme weather events",1
-211020,"Emergency dept., Emergency department visits",10
-211042,"RCP, Climate change emission pathways",11
-211021,"Flood, Flood & Dysintery",12
-211043,"Patients, Patients",13
-211026,"Birth, Birth & pregnancy",14
-211007,"HFMD, Hand-foot-and-mouth disease",15
-211039,"Dust storm, Dust storms",16
-211032,"Ozone, Ozone concentrations",17
-211058,"Work injury, Work-related injuries",18
-211045,"Water, Drinking water",19
-211018,"Mosquito, Mosquito vectors",2
-210998,"Dengue, Dengue fever",2
-211014,"Infectious, Infectious disease",2
-211064,"Region, Regions and states",2
-211063,"Areas, Spatial clustering",2
-211052,"Monthly, Meteorology: monthly",2
-211006,"Seasonality, Seasonal variation",2
-211009,"Model, Forecasting model",2
-211004,"Meteorology, Meteorological variables",2
-211022,"Cases, Cases of disease",2
-211035,"Inicidence, Disease incidence",2
-211024,"In-/outdoor, Indoor & outdoor exposure",20
-211011,"Asthma, Asthma ",21
-211036,"Heatwave, Heatwaves",22
-211034,"Fire, Fires & smoke",23
-211015,"Influenza, Influenza",24
-211017,"Stroke, Stroke",25
-211059,"RSV, Respiratory syncytial virus",26
-211061,"Leptospirosis, Leptospirosis",27
-211010,"Pollen, Pollen & airborne allergens",28
-211065,"Drought, Agricultural drought",29
-211008,"Air pollution, Air pollution levels",3
-211066,"Air quality, Air quality",3
-211013,"Air pollution, Air pollution emissions ",3
-211012,"Particulates, Particulate matter",3
-211057,"Cities, Cities",3
-211056,"China, China",3
-211047,"Cooking fuel, Cooking fuels & stoves",3
-211055,"Co-benefits, Mitigation policy co-benefits",3
-211037,"Hydrocarbons, Air pollution: PAH",30
-211030,"Suicide, Suicide",31
-211053,"Cholera, Cholera",32
-211051,"Temperature, Diurnal temperature",33
-211060,"Hantavirus, Hantavirus &  hemorrhagic fever with renal syndrome",34
-211050,"Spores, Fungal spores",35
-211016,"Vulnerability, Vulnerability to climate change",4
-211041,"Adaptation, Adaptation strategies",4
-211028,"Household, Households & rural communities",4
-211044,"Health, Public health",4
-210999,"Climate change, Impacts of climate change",4
-211000,"Heat stress, Heat stress",5
-211019,"Urban, Urban areas & urban heat island",5
-211001,"Malaria, Malaria",6
-211049,"Mental/hurricane, Mental impacts of hurricanes",7
-211038,"Disaster, Natural disasters & responses",7
-211025,"Children, Children",8
-211002,"Heat wave, Heat waves",9
+id,label,infomap,name
+210997,"Exposure, Exposure to pollution",1,1:7
+211031,"Respiratory, Respiratory & cardiovascular",1,1:11
+211005,"Hospital, Hospital admissions",1,1:10
+211029,"Death, Excess deaths",1,1:8
+211033,"Temperature, Ambient temperature",1,1:2
+211062,"Statistics, Statistical lag",1,1:5
+211054,"CVD, Cardiovascular disease",1,1:13
+211048,"Association, Statistical association",1,1:3
+211046,"Cold, Cold spells",1,1:12
+211003,"Mortality, Mortality",1,1:1
+211040,"Daily, Daily data & trends",1,1:6
+211027,"Risk, Risk",1,1:4
+211023,"Extreme weather, Extreme weather events",1,1:9
+211020,"Emergency dept., Emergency department visits",10,10:1
+211042,"RCP, Climate change emission pathways",11,11:1
+211021,"Flood, Flood & Dysintery",12,12:1
+211043,"Patients, Patients",13,13:1
+211026,"Birth, Birth & pregnancy",14,14:1
+211007,"HFMD, Hand-foot-and-mouth disease",15,15:1
+211039,"Dust storm, Dust storms",16,16:1
+211032,"Ozone, Ozone concentrations",17,17:1
+211058,"Work injury, Work-related injuries",18,18:1
+211045,"Water, Drinking water",19,19:1
+211018,"Mosquito, Mosquito vectors",2,2:11
+210998,"Dengue, Dengue fever",2,2:10
+211014,"Infectious, Infectious disease",2,2:9
+211064,"Region, Regions and states",2,2:5
+211063,"Areas, Spatial clustering",2,2:3
+211052,"Monthly, Meteorology: monthly",2,2:7
+211006,"Seasonality, Seasonal variation",2,2:6
+211009,"Model, Forecasting model",2,2:2
+211004,"Meteorology, Meteorological variables",2,2:1
+211022,"Cases, Cases of disease",2,2:4
+211035,"Inicidence, Disease incidence",2,2:8
+211024,"In-/outdoor, Indoor & outdoor exposure",20,20:1
+211011,"Asthma, Asthma ",21,21:1
+211036,"Heatwave, Heatwaves",22,22:1
+211034,"Fire, Fires & smoke",23,23:1
+211015,"Influenza, Influenza",24,24:1
+211017,"Stroke, Stroke",25,25:1
+211059,"RSV, Respiratory syncytial virus",26,26:1
+211061,"Leptospirosis, Leptospirosis",27,27:1
+211010,"Pollen, Pollen & airborne allergens",28,28:1
+211065,"Drought, Agricultural drought",29,29:1
+211008,"Air pollution, Air pollution levels",3,3:1
+211066,"Air quality, Air quality",3,3:5
+211013,"Air pollution, Air pollution emissions ",3,3:6
+211012,"Particulates, Particulate matter",3,3:2
+211057,"Cities, Cities",3,3:4
+211056,"China, China",3,3:3
+211047,"Cooking fuel, Cooking fuels & stoves",3,3:8
+211055,"Co-benefits, Mitigation policy co-benefits",3,3:7
+211037,"Hydrocarbons, Air pollution: PAH",30,30:1
+211030,"Suicide, Suicide",31,31:1
+211053,"Cholera, Cholera",32,32:1
+211051,"Temperature, Diurnal temperature",33,33:1
+211060,"Hantavirus, Hantavirus &  hemorrhagic fever with renal syndrome",34,34:1
+211050,"Spores, Fungal spores",35,35:1
+211016,"Vulnerability, Vulnerability to climate change",4,4:3
+211041,"Adaptation, Adaptation strategies",4,4:5
+211028,"Household, Households & rural communities",4,4:4
+211044,"Health, Public health",4,4:2
+210999,"Climate change, Impacts of climate change",4,4:1
+211000,"Heat stress, Heat stress",5,5:1
+211019,"Urban, Urban areas & urban heat island",5,5:2
+211001,"Malaria, Malaria",6,6:1
+211049,"Mental/hurricane, Mental impacts of hurricanes",7,7:1
+211038,"Disaster, Natural disasters & responses",7,7:2
+211025,"Children, Children",8,8:1
+211002,"Heat wave, Heat waves",9,9:1

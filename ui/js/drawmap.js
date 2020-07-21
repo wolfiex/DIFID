@@ -1,18 +1,21 @@
 var map;
 
 function setMap(){
-    d3
+    
+    var w = d3
         .select('#world')
         .style("width", width)
         .style("height", height)
         .style("left", `${(window.innerWidth - width) / 2}`);
         
-    map = L.map('world').setView([-0.2858, 0.7868], 1);
+
+        
+    map = L.map('world',{ zoomControl: false }).setView([-0.2858, 0.7068], 1);
     mapLink = 
         '<a href="http://openstreetmap.org">OpenStreetMap</a>';
     L.tileLayer(
         'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; ' + mapLink + ' | DIFID | CEMAC   <br> '+'<button type="button" onclick="map._resetView([-0.2858, 0.7868], 1);draw()" style="background-color: white;color: red;border: 2px solid coral;float:right;">ReCentre Map</button>',
+        attribution: '&copy; ' + mapLink + ' | DIFID | CEMAC   <br> '+'',
         maxZoom: 17,
         minZoom:1
         }).addTo(map);
@@ -20,11 +23,20 @@ function setMap(){
     map.dragging.disable();  
     
 
-    map.on("viewreset", function () {
-        draw();
-    });
+
+    // map.on("viewreset", function () {
+    //     draw();
+    // });
+    // 
     map.on('zoomstart',function(){context.clearRect(0,0,width,height)})
+    map.on('zoomend',draw)
     
+        // w.node().innerHTML += '<button type="button" onclick="map._resetView([-0.2858, 0.7868], 1);draw()" class="recentre">ReCentre Map</button>'
+    
+    w.append('button')
+     .classed('recentre',true)
+     .text('ReCentre')
+     .on('click',function(){map._resetView([-0.2858, 0.7868], 1);draw()})
     
     
 }

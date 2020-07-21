@@ -1,148 +1,150 @@
 @font-face {
     font-family: BalooDa;
     src: url(BalooDa2-Medium.ttf);
-/* relative to stylesheet     */
+    /* relative to stylesheet     */
 }
 
-
-
-
-body{
-    /* background-color: whitesmoke; */
+body {
+    background-color: 	rgb(252,252,252);
     font-family: 'BalooDa';
     /* //display: flex; */
     justify-content: center;
     align-items: center;
-    color:whitesmoke;
-    overflow-x:
-    hidden;
-    overflow-y:hidden;
-    
+    color: whitesmoke;
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
 
-
-svg#overlay{
-    position:absolute;
-    display:inline-block;
-    pointer-events: none;
-    right:0;
-    left: 0;
-    width:100vw;
-    height:100vh;
-    
-}
-
-.hiddenCanvas{
-			display: none;
-            z-index:9999; 
-            /* position:absolute; */
-            /* padding-left:5%  */
-            position:relative;
-		}
-        
-.mainCanvas{ /* padding-left:5%  */
-    z-index: 999; 
-    position:relative;
-        		}
-
-div canvas, div svg{ 
-display:block;
-margin-left: auto;
-margin-right: auto;
-
-}
-
-
-
-div#tooltip {
-			position: absolute;        
-			display: inline-block;
-			padding: 10px;
-			font-family: 'BalooDa';
-			color: #111;
-			background-color: whitesmoke;
-			border: 1px solid #999;
-			border-radius: 2px;
-		    pointer-events: none;
-			opacity: 0;
-			z-index: 1;
-            bottom:0
-            
-            width:40%;
-            height:40%;
-            border-radius: 25px;
-            
-}            
-
-#header{
-    position:absolute;
-    bottom:10px;
-right:10px;
-color:#222;
-display:block;
-}
-
-
-
-#title{
-    font-size: 20px;
-    bottom: 0;
-    width:85%;
-    left:20px;
-    position:absolute;
-    color:#222;
-    font-size: 11pt;
-}
-
-
-
-
-input[type=radio   ]:not(old):checked + label > span{
-  background-image :    -moz-linear-gradient(rgb(224,224,224),rgb(240,240,240));
-  background-image :     -ms-linear-gradient(rgb(224,224,224),rgb(240,240,240));
-  background-image :      -o-linear-gradient(rgb(224,224,224),rgb(240,240,240));
-  background-image : -webkit-linear-gradient(rgb(224,224,224),rgb(240,240,240));
-  background-image :         linear-gradient(rgb(224,224,224),rgb(240,240,240));
-}
-
-
-
-.annotation-note-label tspan {
-    dy:0;
-}
-.annotation-note-title{
-    display:none
-}
-
-.annotation-group text{
-    stroke-width:1px!important;
-}
-
-.hilight{
-    color:rgb(232, 51, 109)!important;
-    stroke:rgb(232, 51, 109);
-    stroke-width:2.4px;
-}
-#world{
-    position:absolute;
-    width:10vw;
-    height:10vh;
-    display:inline;
-     z-index: 1; 
+svg#overlay {
+    position: absolute;
     display: inline-block;
-    margin-left: auto;
-    margin-right: auto;
-}
-#world:after{
-    cursor: pointer;
-content:"";
+    pointer-events: none;
+    right: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 299;
 }
 
-#countryselector{
-    position:absolute;
-    width:100vw;
-    height:100vh;
+.hiddenCanvas {
+    display: none;
+    z-index:910;
+    /* position:absolute; */
+    /* padding-left:5%  */
+    position: relative;
+}
+
+.mainCanvas {
+    /* padding-left:5%  */
+    z-index: 99;
+    position: relative;
+}
+
+div canvas, div svg {
     display: block;
     margin-left: auto;
     margin-right: auto;
+}
+
+div#tooltip {
+    position: absolute;
+    display: inline-block;
+    padding: 10px;
+    font-family: 'BalooDa';
+    color: #111;
+    background-color: whitesmoke;
+    border: 1px solid #999;
+    border-radius: 2px;
+    pointer-events: none;
+    opacity: 0;
+    z-index: 1;
+    bottom: 0 width:40%;
+    height: 40%;
+    border-radius: 25px;
+}
+
+#header {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    color: #222;
+    display: block;
+}
+
+#title {
+    font-size: 20px;
+    bottom: 0;
+    width: 85%;
+    left: 20px;
+    position: absolute;
+    color: #222;
+    font-size: 11pt;
+}
+
+input[type=radio]:not(old):checked+label>span {
+    background-image: -moz-linear-gradient(rgb(224, 224, 224), rgb(240, 240, 240));
+    background-image: -ms-linear-gradient(rgb(224, 224, 224), rgb(240, 240, 240));
+    background-image: -o-linear-gradient(rgb(224, 224, 224), rgb(240, 240, 240));
+    background-image: -webkit-linear-gradient(rgb(224, 224, 224), rgb(240, 240, 240));
+    background-image: linear-gradient(rgb(224, 224, 224), rgb(240, 240, 240));
+}
+
+.annotation-note-label tspan {
+    dy: 0;
+}
+
+.annotation-note-title {
+    display: none
+}
+
+.annotation-group text {
+    stroke-width: 1px!important;
+}
+
+.hilight {
+    color: rgb(232, 51, 109)!important;
+    stroke: rgb(232, 51, 109);
+    stroke-width: 2.4px;
+}
+
+#world {
+    position: absolute;
+    width: 10vw;
+    height: 10vh;
+    display: inline;
+    z-index: 1;
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 5px;
+}
+
+#world:after {
+    cursor: pointer;
+    content: "";
+    
+}
+
+#countryselector {
+    position: absolute;
+    /* display: block; */
+    margin-left: auto;
+    margin-right: auto;
+        z-index: 399;
+    
+}
+
+.recentre {
+    position:relative;
+    background-color: white;
+    color: red;
+    border: 2px solid coral;
+    top: 0;
+    z-index:9999;
+    width: 100;
+    height: 25;
+    margin-left: auto;
+    margin-right: auto;
+    display: table;
+    border-radius: 2px;
 }

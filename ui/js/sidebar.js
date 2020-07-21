@@ -6,17 +6,60 @@ function closeNav(x) {
     document.getElementById(x).style.width = "0";
 }
 
-function access(x) {
-    x = document.getElementById(x);
+function switchview(){
+    fadeout(['canvas','#world'],duration=1500)
+    data.carto = !data.carto;
+    d3.select('#L1').text(data.carto? 't-SNE Map View':'World View');
+    draw()
+    fadein(['canvas','#world'],duration=2000,delay=1500)
+
+}
+
+function access(xid) {
+        
+    x = document.getElementById(xid);
     var state = x.getAttribute("state") || false;
     if (state === "true") {
+        fadeout(['#'+xid])
+        fadein(['#overlay','canvas'],delay=1000)
         x.style.visibility = "hidden";
+        x.transition = 'visibility 0.3s linear,opacity 0.3s linear'
         x.setAttribute("state", false);
+        
     } else {
+        fadeout(['#overlay','canvas'])
+        fadein(['#'+xid],delay=1000)
         x.style.visibility = "visible";
+        x.transition = 'visibility 0.3s linear,opacity 0.3s linear'
         x.setAttribute("state", true);
     }
 }
+
+
+
+    
+function fadeout(what,duration=750,delay=0){
+    what.forEach(d=>{
+    d3.selectAll(d).transition(d3.transition()
+        .duration(duration)
+        .ease(d3.easeLinear).delay(delay))
+    .styleTween("opacity", function() {
+  return (i)=>1-i;
+});
+})
+}
+
+function fadein(what,duration=750,delay=0){
+    what.forEach(d=>{
+    d3.selectAll(d).transition(d3.transition()
+        .duration(duration)
+        .ease(d3.easeLinear).delay(delay))
+    .styleTween("opacity", function() {
+  return (i)=>i;
+});
+})
+}
+
 
 function save() {
     var selected = new Set(

@@ -11,6 +11,7 @@
   transition: 0.5s;
   padding-top: 60px;
   text-align:center;
+  
 }
 
 .sidenav a {
@@ -56,6 +57,7 @@
     height:100vh;
     width:32px;
     right:0;
+    z-index: 999; 
     position:absolute;
     display: flex;
     flex-direction: column;
@@ -127,22 +129,22 @@ b{
 }
 
 /* The about link: 20px from the top with a green background */
-#Continent {
+#L1 {
   top: 20px;
   background-color:#2ecc71;
 }
 
-#Label {
+#L2 {
   top: 80px;
   background-color: #3498db; /* Blue */
 }
 
-#Field {
+#L3 {
   top: 140px;
   background-color: #f1c40f; /* Red */
 }
 
-#Search{
+#L4{
   top: 200px;
   background-color: #e74c3c /* Light Black */
 }
