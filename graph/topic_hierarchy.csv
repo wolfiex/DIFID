@@ -1,71 +1,71 @@
 id,label,infomap,name
-210997,"Exposure, Exposure to pollution",1,1:7
-211031,"Respiratory, Respiratory & cardiovascular",1,1:11
-211005,"Hospital, Hospital admissions",1,1:10
-211029,"Death, Excess deaths",1,1:8
-211033,"Temperature, Ambient temperature",1,1:2
-211062,"Statistics, Statistical lag",1,1:5
-211054,"CVD, Cardiovascular disease",1,1:13
-211048,"Association, Statistical association",1,1:3
-211046,"Cold, Cold spells",1,1:12
-211003,"Mortality, Mortality",1,1:1
-211040,"Daily, Daily data & trends",1,1:6
-211027,"Risk, Risk",1,1:4
-211023,"Extreme weather, Extreme weather events",1,1:9
-211020,"Emergency dept., Emergency department visits",10,10:1
-211042,"RCP, Climate change emission pathways",11,11:1
-211021,"Flood, Flood & Dysintery",12,12:1
-211043,"Patients, Patients",13,13:1
-211026,"Birth, Birth & pregnancy",14,14:1
-211007,"HFMD, Hand-foot-and-mouth disease",15,15:1
-211039,"Dust storm, Dust storms",16,16:1
-211032,"Ozone, Ozone concentrations",17,17:1
-211058,"Work injury, Work-related injuries",18,18:1
-211045,"Water, Drinking water",19,19:1
-211018,"Mosquito, Mosquito vectors",2,2:11
-210998,"Dengue, Dengue fever",2,2:10
-211014,"Infectious, Infectious disease",2,2:9
-211064,"Region, Regions and states",2,2:5
-211063,"Areas, Spatial clustering",2,2:3
-211052,"Monthly, Meteorology: monthly",2,2:7
-211006,"Seasonality, Seasonal variation",2,2:6
-211009,"Model, Forecasting model",2,2:2
-211004,"Meteorology, Meteorological variables",2,2:1
-211022,"Cases, Cases of disease",2,2:4
-211035,"Inicidence, Disease incidence",2,2:8
-211024,"In-/outdoor, Indoor & outdoor exposure",20,20:1
-211011,"Asthma, Asthma ",21,21:1
-211036,"Heatwave, Heatwaves",22,22:1
-211034,"Fire, Fires & smoke",23,23:1
-211015,"Influenza, Influenza",24,24:1
-211017,"Stroke, Stroke",25,25:1
-211059,"RSV, Respiratory syncytial virus",26,26:1
-211061,"Leptospirosis, Leptospirosis",27,27:1
-211010,"Pollen, Pollen & airborne allergens",28,28:1
-211065,"Drought, Agricultural drought",29,29:1
-211008,"Air pollution, Air pollution levels",3,3:1
-211066,"Air quality, Air quality",3,3:5
-211013,"Air pollution, Air pollution emissions ",3,3:6
-211012,"Particulates, Particulate matter",3,3:2
-211057,"Cities, Cities",3,3:4
-211056,"China, China",3,3:3
-211047,"Cooking fuel, Cooking fuels & stoves",3,3:8
-211055,"Co-benefits, Mitigation policy co-benefits",3,3:7
-211037,"Hydrocarbons, Air pollution: PAH",30,30:1
-211030,"Suicide, Suicide",31,31:1
-211053,"Cholera, Cholera",32,32:1
-211051,"Temperature, Diurnal temperature",33,33:1
-211060,"Hantavirus, Hantavirus &  hemorrhagic fever with renal syndrome",34,34:1
-211050,"Spores, Fungal spores",35,35:1
-211016,"Vulnerability, Vulnerability to climate change",4,4:3
-211041,"Adaptation, Adaptation strategies",4,4:5
-211028,"Household, Households & rural communities",4,4:4
-211044,"Health, Public health",4,4:2
-210999,"Climate change, Impacts of climate change",4,4:1
-211000,"Heat stress, Heat stress",5,5:1
-211019,"Urban, Urban areas & urban heat island",5,5:2
-211001,"Malaria, Malaria",6,6:1
-211049,"Mental/hurricane, Mental impacts of hurricanes",7,7:1
-211038,"Disaster, Natural disasters & responses",7,7:2
-211025,"Children, Children",8,8:1
-211002,"Heat wave, Heat waves",9,9:1
+213168,"Spatial, Spatial analyses",1,1:1
+213186,"Rainfall, Monthly rainfall",1,1:7
+213128,"Dengue, Dengue",1,1:6
+213163,"Incidence, Disease incidence",1,1:8
+213160,"RSV, Respiratory viruses",1,1:12
+213154,"Meteorology, Meteorological variables",1,1:2
+213146,"Seasonality, Seasonality ",1,1:5
+213142,"Viral, Viral diseases",1,1:10
+213134,"Case, Case data",1,1:3
+213135,"Infectious, Infectious diseases general",1,1:9
+213137,"Mosquito, Mosquito vector dynamics",1,1:11
+213138,"Model, Modelling & forecasting",1,1:4
+213159,"Health facilities, Visit to health care facilities",10,10:1
+213188,"Age & sex, Age & sex",11,11:1
+213148,"HFMD, Hand-foot-and-mouth disease",12,12:1
+213179,"RCP, Greenhouse pathways",13,13:1
+213147,"Birth, Birth & pregnancy",14,14:1
+213187,"Household, Rural households",15,15:1
+213161,"Patients, Patients",16,16:1
+213162,"Child, Child health",17,17:1
+213153,"Ozone, Emissions (ozone)",18,18:1
+213183,"Asthma, Asthma",19,19:1
+213190,"Energy, Energy policy & co-benefits",2,2:7
+213185,"Exposure, Exposure",2,2:4
+213130,"PM2.5-10, Particulate matter",2,2:1
+213124,"NOx/Vehicles, Emissions (NOx & vehicles)",2,2:6
+213191,"China, China",2,2:5
+213150,"Particulates, Particle concentration (air)",2,2:3
+213123,"Air pollution, Air pollution",2,2:2
+213155,"Stroke, Stroke",20,20:1
+213176,"Dust storm, Dust storms",21,21:1
+213156,"Influenza, Influenza",22,22:1
+213133,"Flood, Floods",23,23:1
+213157,"Fire, Wildfires",24,24:1
+213181,"In-/out-door, Indoor/outdoor (pollution & heat)",25,25:1
+213184,"Injury, Occupational injury",26,26:1
+213143,"Water, Drinking water quality",27,27:1
+213132,"Pollen, Pollen & allergies",28,28:1
+213189,"Leptospirosis, Leptospirosis",29,29:1
+213145,"Temporal, Temporal analyses",3,3:3
+213125,"Mortality, Mortality",3,3:2
+213177,"Death, Death",3,3:4
+213182,"Cold, Cold & extreme temperatures",3,3:7
+213149,"Extreme weather, Extreme weather events",3,3:5
+213166,"Warming, Increasing temperature",3,3:6
+213140,"Temperature, Ambient temperature",3,3:1
+213175,"Suicide, Suicide",30,30:1
+213171,"DTR, Diurnal temperature range",31,31:1
+213165,"PAH, Polycyclic aromatic hydrocarbons ",32,32:1
+213173,"Drought, Drought",33,33:1
+213180,"Cholera, Cholera",34,34:1
+213174,"Spores, Fungal spores",35,35:1
+213152,"Food, Food insecurity",36,36:1
+213170,"Risk, Risk assessment & risk perception",4,4:3
+213169,"Adaptation, Adaptation",4,4:5
+213122,"Climate change, General climate change",4,4:1
+213158,"Vulnerability, Vulnerability",4,4:4
+213151,"Farmer, Farmers & agriculture",4,4:8
+213126,"Disaster, Natural disasters",4,4:7
+213139,"Resilience, Community resilience",4,4:6
+213144,"Public health, Public health",4,4:2
+213131,"Heat stress, Heat stress",5,5:1
+213129,"Urban, Urban areas",5,5:2
+213178,"Thermal stress, Thermal stress & comfort",5,5:3
+213127,"Malaria, Malaria",6,6:1
+213136,"Hospital, Hospital admissions",7,7:1
+213164,"Symptom, Symptoms",8,8:3
+213167,"Hurricane, Hurricanes",8,8:1
+213172,"Mental, Mental health & PTSD",8,8:2
+213141,"Heatwave, Heatwaves",9,9:1

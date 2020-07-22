@@ -6,7 +6,7 @@
 
 body {
     background-color: 	rgb(252,252,252);
-    font-family: 'BalooDa';
+    font-family: 'Arial';
     /* //display: flex; */
     justify-content: center;
     align-items: center;
@@ -122,7 +122,7 @@ input[type=radio]:not(old):checked+label>span {
 #world:after {
     cursor: pointer;
     content: "";
-    
+
 }
 
 #countryselector {
@@ -131,7 +131,7 @@ input[type=radio]:not(old):checked+label>span {
     margin-left: auto;
     margin-right: auto;
         z-index: 399;
-    
+
 }
 
 .recentre {
