@@ -118,17 +118,15 @@ if USE_GRAPH:
 
 
 
-
-
-
-
-
-
 '''
 Add tsne_results
 '''
 tsne.set_index('doc_id',inplace = True)
 
+print(nodes)
+
+nodes['tsne_x'] = [tsne.set_index('tsne-1').loc[int(i)]  for i in nodes.id ]
+nodes['tsne_y'] = [tsne.set_index('tsne-2').loc[int(i)]  for i in nodes.id ]
 
 try:
     nodes['tsne_x'] = [tsne.set_index('tsne-1').loc[int(i)]  for i in nodes.id ]
