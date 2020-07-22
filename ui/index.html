@@ -8,18 +8,18 @@
 
 <body>
 
-    
+
     <svg id = 'overlay'></svg>
 
-    <h2 id=header class='logo'>EviMapping </h2>
+    <!-- <h2 id=header class='logo'>EviMapping </h2> -->
     <span id='title'></span>
 
     <svg id='countryselector' style='visibility:hidden' >
-        
+
     </svg>
-    
-    
-    
+
+
+
     <div id="mySidenav" class="sidenav">
         <div class='head'>
             <a href="#" class="clr" onclick="clr()" style='left:30pt'>Clear</a>
@@ -40,10 +40,10 @@
       <a href="#">Contact</a> -->
     </div>
 
-    
-    
-            
-                
+
+
+
+
 
 
     <div id="dataSidenav" class="sidenav"></div>
@@ -51,27 +51,27 @@
 
     <div id='sidebar'>
         <a href="#" id="L1" onclick='switchview()'> World View </a>
-        <a href="topics.svg" id="L3">Research Field</a>
+        <!-- <a href="topics.svg" id="L3">Research Field</a> -->
         <a href="#" id="L2" onclick='label()'>Draw Labels</a>
-        <a href="#" id="L4" onclick='access("countryselector")'>Continent Filter</a>
-        
+        <a href="#" id="L3" onclick='access("countryselector")'>Continent Filter</a>
+
         <span style="color:#333;padding-left:2.5px;font-size:30px;top:45vh;position:absolute;cursor:pointer" onclick="openNav('mySidenav')">   &#9776;</span>
     </div>
-    
+
     <div id="world" style="width: 100vw; height: 100vh"></div>
-    
-            
+
+
     <title>DIFID Evidence Atlas</title>
     <author D.Ellis></author>
     <institution CEMAC - Leeds></institution>
     <div id="container"></div>
-    
-    
-    
+
+
+
 
     <div id="tooltip"></div>
-    
-    
+
+
     <!-- em calc div  -->
 <div id="div" style="height:0;width:0;outline:none;border:none;padding:none;margin:none;box-sizing:content-box;"></div>
 
@@ -102,7 +102,7 @@
 
 
 
-    
+
 <script>
     window.scroll(0, 0)
     document.body.onload = function() {
