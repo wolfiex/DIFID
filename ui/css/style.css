@@ -1,6 +1,6 @@
 @font-face {
-    font-family: BalooDa;
-    src: url(BalooDa2-Medium.ttf);
+    font-family: Gotham;
+    src: url(trasporth.ttf);
     /* relative to stylesheet     */
 }
 
@@ -26,6 +26,41 @@ svg#overlay {
     z-index: 299;
 }
 
+#slider{
+    right:0;
+    position: absolute;
+    display: block;
+    font-size: 10px;
+}
+
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 11px;
+  height: 11px;
+  background: #4CAF50;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 5px;
+  height: 5px;
+  background: #4CAF50;
+  cursor: pointer;
+}
+
+.slider {
+  -webkit-appearance: none;
+  width: 50%;
+  height: 5px;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
 .hiddenCanvas {
     display: none;
     z-index:910;
@@ -41,6 +76,8 @@ svg#overlay {
 }
 
 div canvas, div svg {
+    
+        top:10px;
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -58,7 +95,8 @@ div#tooltip {
     pointer-events: none;
     opacity: 0;
     z-index: 1;
-    bottom: 0 width:40%;
+    bottom: 0 ;
+    width:40%;
     height: 40%;
     border-radius: 25px;
 }
@@ -72,10 +110,11 @@ div#tooltip {
 }
 
 #title {
-    font-size: 20px;
-    bottom: 0;
+    top: 0;
     width: 85%;
-    left: 20px;
+    /* left: 20px; */
+    margin-left: auto;
+    margin-right: auto;
     position: absolute;
     color: #222;
     font-size: 11pt;

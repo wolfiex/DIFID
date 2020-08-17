@@ -15,6 +15,7 @@
     <span id='title'></span>
 
     <svg id='countryselector' style='visibility:hidden' >
+    <svg id='topicselector' style='visibility:hidden' >
 
     </svg>
 
@@ -51,7 +52,7 @@
 
     <div id='sidebar'>
         <a href="#" id="L1" onclick='switchview()'> World View </a>
-        <!-- <a href="topics.svg" id="L3">Research Field</a> -->
+        <a href="topics.svg" id="L4">Topic Selector</a>
         <a href="#" id="L2" onclick='label()'>Draw Labels</a>
         <a href="#" id="L3" onclick='access("countryselector")'>Continent Filter</a>
 
@@ -66,10 +67,14 @@
     <institution CEMAC - Leeds></institution>
     <div id="container"></div>
 
+    
+        <label id='slider' for="points" >Score: <input type="range" id="points" name="points" min="0" max="100" value='100' class='slider'></label>
+    
 
 
+    <div id="tooltip">
 
-    <div id="tooltip"></div>
+</div>
 
 
     <!-- em calc div  -->
@@ -84,6 +89,7 @@
 <script src="js/drawmap.js"></script>
 <script src="js/d3.v4.min.js"></script>
 <script src="js/sidebar.js"></script>
+<script src="js/tree.js"></script>
 <script src="js/fuzzysort.js"></script>
 <script src="js/annotate.js"></script>
 <script src="js/legend.js"></script>

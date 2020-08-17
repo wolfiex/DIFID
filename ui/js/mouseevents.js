@@ -1,3 +1,5 @@
+var imageData;
+
 function canvasmove(ev) {    
     
     if (ev){
@@ -24,7 +26,32 @@ function canvasmove(ev) {
     } catch (e) {
         tool.style("opacity", 0);
     }
+    // 
+    if (imageData != undefined){
+        //reset image
+        context.putImageData(imageData,0,0)
+    }else{
+        //copy image
+        imageData = context.getImageData(0,0,width,height);
+    }
+    
+    var x = mouseX, y = mouseY
+    context.beginPath();
+    context.lineWidth=2;
+    context.moveTo(x - 4, y - 4);
+    context.lineTo(x + 4, y + 4);
+    context.moveTo(x + 4, y - 4);
+    context.lineTo(x - 4, y + 4);
+    context.stroke();   
+    context.beginPath();
+    context.lineWidth=1.5;
+    context.arc(x, y, 20, 0, 2 * Math.PI);
+    context.stroke();
+    
+    
 }
+
+
 
 function canvasdblclick (ev) {    
     
@@ -45,6 +72,8 @@ function canvasdblclick (ev) {
         doi(doc.wosarticle__di);
     } catch (e) {}
 }
+
+
 
 function mousesetup(hiddencontext, mainCanvas, map){
     mainCanvas.on("mouseout", function() {

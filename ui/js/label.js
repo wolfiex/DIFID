@@ -23,7 +23,7 @@ function label(){
     var lc = 1
     var rc = 1
             
-            var annotations = data.labels.map(d=>{
+            data.annotations = data.labels.map(d=>{
                 
                 if (d.left){
                     var dh = lc*lh*em
@@ -41,7 +41,9 @@ function label(){
                   },
                   //can use x, y directly instead of data
                   data: { },
-                     x:d.cx+shift.x, y:d.cy+shift.y,                  
+                     x:d.cx+shift.x, y:d.cy+shift.y,         
+                     x1:d.cx+shift.x, y1:d.cy+shift.y,  
+                              
                          ny: dh,//d.cy,
                          nx: d.left?shift.x - 20:20+shift.width+shift.x,  
                   
@@ -59,18 +61,18 @@ function label(){
             var me = data.labels[2]
 
 
-        const makeAnnotations = d3.annotation()
+        data.makeAnnotations = d3.annotation()
           .editMode(false)
           .notePadding(1.01)
           .type(type)
-          .accessors({}) 
-          .annotations(annotations)
+           .accessors({ })
+          .annotations(data.annotations)
 
         d3.select("#overlay")
           .append("g")
           .attr("class", "annotation-group")  
           .style('opacity',0)
-          .call(makeAnnotations)
+          .call(data.makeAnnotations)
 
     // d3.selectAll('.annotation-note-label tspan').attr('dy','1.8em')
     d3.selectAll('.annotation-connector').attr('opacity',.6)
