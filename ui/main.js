@@ -19,7 +19,7 @@ app.on('window-all-closed', function() {
 
 app.on('ready', function() {
     const myLocation = 'file://' + __dirname
-    mainWindow = new BrowserWindow({width:800, height: 800,resizable: true,title:'Dan Ellis 2016' ,
+    mainWindow = new BrowserWindow({width:1200, height: 800,resizable: true,title:'Dan Ellis 2016' ,
                                         webPreferences: {
   nodeIntegration: true
 },

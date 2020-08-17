@@ -3,7 +3,7 @@ var em;
 var div = document.getElementById("div");
 div.style.height = "1em";
 em = div.offsetHeight;
-
+var imageData = undefined;
 var data;
 var width = height = d3.min([window.innerWidth, window.innerHeight-40,window.innerWidth-300])
 
@@ -24,10 +24,12 @@ d3
     .queue()
     .defer(d3.csv, "../data/doc_information.csv") // documnet info [0]
     .defer(d3.csv, "../data/tsne_results.csv") // tsnelocations
-    .defer(d3.csv, "../data/topic_info.csv") // tsnelocations
+    .defer(d3.csv, "../data/doctopic.csv")
+    //.defer(d3.csv, "../data/topic_info.csv") // tsnelocations
     .defer(d3.csv, "../data/label_tsne.csv") //labelloc
     .defer(d3.csv, "../data/locations.csv")
     .defer(d3.json, "continents.geojson")
+    
     //.defer(d3.csv, '../preprocess/nodes.csv')// node data
     .await(load);
 
@@ -76,7 +78,11 @@ function load(err, ...dt) {
         return d;
     });
 
-    data.topics = dt[2];
+    data.topics = dt[2].map(d=>{Object.keys(d).forEach(e=>{d[e] = +d[e]}); return d});
+    
+    // slider scale
+    data.weight = d3.scaleLinear().range(d3.extent(data.topics.map(d=>d.score)))
+    
 
     var hw = width / 2.0;
     data.labels = dt[3]
@@ -101,6 +107,10 @@ function load(err, ...dt) {
     data.title = [...data.info.values()].map((d, i) => {
         return { title: d.title.toLowerCase(), id: d.id };
     });
+
+    // topic filtered
+    data.top = dt[6]
+
 
     // set up canvas
     mainCanvas = d3
@@ -143,11 +153,33 @@ function load(err, ...dt) {
                 .on("zoom", () => zoomed(d3.event.transform))
         );
 
+
+
     function zoomed(transform) {
+        
+        imageData = undefined;
+        var matrix=[1,0,0,1,0,0];
+        function translate(x,y){
+            matrix[4] += matrix[0] * x + matrix[2] * y;
+            matrix[5] += matrix[1] * x + matrix[3] * y;
+
+        }
+        function scale(x,y){
+            matrix[0] *= x;
+            matrix[1] *= x;
+            matrix[2] *= y;
+            matrix[3] *= y;    
+        }
+        
+        function getXY(mouseX,mouseY){
+            newX = mouseX * matrix[0] + mouseY * matrix[2] + matrix[4];
+            newY = mouseX * matrix[1] + mouseY * matrix[3] + matrix[5];
+            return({x:newX,y:newY});
+        }
         
         console.log(transform)
         
-        d3.selectAll(".annotation-group").remove();
+        //d3.selectAll(".annotation-group").remove();
         context.save();
         context.clearRect(0, 0, width, height);
         context.translate(transform.x, transform.y);
@@ -161,9 +193,36 @@ function load(err, ...dt) {
 
         data.zoom = (1 / transform.k) ** 0.5 || 1;
         draw();
-        window.scroll(0, 0);
         context.restore();
         hiddencontext.restore();
+        
+        
+        window.scroll(0, 0);
+        // 
+        // translate(transform.x, transform.y);
+        // scale(transform.k, transform.k);
+// 
+//          data.annot = data.makeAnnotations.annotations().map(d=>{var e = getXY(d._x1,d._y1); d._x = e.x; d._y=e.y; return d})
+//         // 
+// //         var noteBoxes = data.makeAnnotations.collection().noteNodes
+// //         data.makeAnnotations.annotations().forEach((r, i) => {
+// //   const d = noteBoxes[i]	
+// // var e = getXY(d.x1,d.y1); d.x = e.x; d.y=e.y;
+// // })
+// 
+// data.makeAnnotations.annotations().forEach((d,i)=>{
+// 
+// 
+//     var newx= 222
+//     d.offset.x = data.annotations[i].nx - newx
+//     d.x = newx
+// })
+// 
+// 
+// data.makeAnnotations.update()
+// 
+        
+        
     }
 
     zoomed(d3.zoomIdentity);
@@ -174,6 +233,12 @@ function load(err, ...dt) {
     console.log("data loaded");
 }
 
+
+
+
+//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
 function draw() {
     context.clearRect(0, 0, width, height);
     hiddencontext.clearRect(0, 0, width, height);
@@ -189,13 +254,13 @@ function draw() {
         filtered = filtered
             .map(d => {
                 try {
-                    //console.log('fdsfd',loc,d.doc_id,data.locations.get(d.doc_id),filtered)
                     d.loc = map.latLngToLayerPoint(
                         data.locations.get(d.doc_id)
                     );
                     // console.log(d.loc)
                     //[loc.x+Math.random()*0.001,loc.y]
                     return d;
+                    
                 } catch (e) {
                     return false;
                 }
@@ -242,6 +307,7 @@ function draw() {
             );
         }
     }
+    
 
     var keys = [];
     filtered.forEach(d => {
@@ -256,11 +322,13 @@ function draw() {
         context.fill();
     });
 
+
+    //legend
     legend([...new Set(keys)], cmap);
+
 
     // set invisible nodes
     data.nodeclr = {};
-
     filtered.forEach((d, i) => {
         hiddencontext.beginPath();
         drawCell(hiddencontext, polygons[i]);
@@ -288,6 +356,7 @@ function drawCell(ctx, cell) {
     return true;
 }
 
+
 // function for tooltip
 function genColor(i) {
     var ret = [];
@@ -299,6 +368,8 @@ function genColor(i) {
     return "rgb(" + ret.join(",") + ")";
 }
 
+
+// load paper
 function doi(x) {
     var url = `https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q=${x.replace("/", "%2F")}&btnG=`;
     console.log(url);
