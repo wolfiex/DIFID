@@ -12,6 +12,7 @@ function switchview(){
     d3.select('#L1').text(data.carto? 't-SNE Map View':'World View');
     draw()
     fadein(['canvas','#world'],duration=2000,delay=1500)
+    imageData = undefined
 
 }
 
