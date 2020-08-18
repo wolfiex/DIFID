@@ -3,15 +3,33 @@ function label(){
     
     
     if (data.carto){switchview()}
+    
+    
+    
+    if (data.makeAnnotations){
+        
+        if (data.showlabel){
+            data.showlabel=false;
+            fadeout([".annotation-group"],duration=2700)
+            
+        }else{
+            data.showlabel=true;
+            fadein([".annotation-group"],duration=2700)
+        }
+        
+        
+        return 1}
+    
+    
     if (d3.select('.annotation-group').node()!=null){
         return d3.select('.annotation-group').remove()
-        
     }
     
     
+    data.showlabel= false
+    
     const type = d3.annotationCalloutCircle
 
-    var shift = d3.select('canvas').node().getBoundingClientRect()
 
 
     var left = data.labels.filter(d=>d.left)
@@ -23,7 +41,7 @@ function label(){
     var lc = 1
     var rc = 1
             
-            data.annotations = data.labels.map(d=>{
+            var annotations = data.labels.map((d)=>{
                 
                 if (d.left){
                     var dh = lc*lh*em
@@ -32,6 +50,7 @@ function label(){
                     var dh = rc*rh*em
                     rc+=1
                 }
+                var id = 'label_'+ d.label.replace(/[&\s-\/\.]/g, '_');
                 
                 return { note: {
                     title:'32',
@@ -40,14 +59,14 @@ function label(){
                     align:!d.left?"left":'right',
                   },
                   //can use x, y directly instead of data
-                  data: { },
+                  data: {x1:d.cx, y1:d.cy, },
                      x:d.cx+shift.x, y:d.cy+shift.y,         
-                     x1:d.cx+shift.x, y1:d.cy+shift.y,  
-                              
+                     
+                        id:id,      
                          ny: dh,//d.cy,
                          nx: d.left?shift.x - 20:20+shift.width+shift.x,  
                   
-                  className: "show-bg",
+                  className:id  ,
 
                   subject: {
                     radius: 4
@@ -58,15 +77,15 @@ function label(){
             })
 
 
-            var me = data.labels[2]
 
 
         data.makeAnnotations = d3.annotation()
           .editMode(false)
           .notePadding(1.01)
           .type(type)
-           .accessors({ })
-          .annotations(data.annotations)
+           .accessors({})
+          .annotations(annotations)
+          
 
         d3.select("#overlay")
           .append("g")
@@ -88,6 +107,6 @@ function label(){
     })
     // 
     
-    fadein([".annotation-group"],duration=2700)
+    
     
 }

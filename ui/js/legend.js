@@ -4,10 +4,12 @@ function legend(keys,color){
     var keys = keys.filter(d=>d)
     var s = d3.select("#overlay")
     
-    d3.selectAll('.legend').remove()
+    s.selectAll('.legend').remove()
+    
+    sg = s.append('g').classed('legend',true)
 
 // Add one dot in the legend for each name.
-s.selectAll("ldot")
+sg.selectAll("ldot")
   .data(keys)
   .enter()
   .append("circle")
@@ -19,7 +21,7 @@ s.selectAll("ldot")
     .style("fill", function(d){ return color(d)})
 
 // Add one dot in the legend for each name.
-s.selectAll("llab")
+sg.selectAll("llab")
   .data(keys)
   .enter()
   .append("text")

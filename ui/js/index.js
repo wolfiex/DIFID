@@ -4,7 +4,7 @@ var div = document.getElementById("div");
 div.style.height = "1em";
 em = div.offsetHeight;
 var imageData = undefined;
-var data;
+var data,shift;
 var width = height = d3.min([window.innerWidth, window.innerHeight-40,window.innerWidth-300])
 
 if (width<200){alert('window size too small, please enlarge this!')}
@@ -147,18 +147,20 @@ function load(err, ...dt) {
         .call(
             d3
                 .zoom()
-                .scaleExtent([1, 8])
+                .scaleExtent([0.5, 12])
                 .translateExtent([[0, 0], [width, height]])
                 .extent([[0, 0], [width, height]])
                 .on("zoom", () => zoomed(d3.event.transform))
         );
 
-
+    shift = d3.select('canvas').node().getBoundingClientRect()
 
     function zoomed(transform) {
         
         imageData = undefined;
+        
         var matrix=[1,0,0,1,0,0];
+        
         function translate(x,y){
             matrix[4] += matrix[0] * x + matrix[2] * y;
             matrix[5] += matrix[1] * x + matrix[3] * y;
@@ -177,7 +179,8 @@ function load(err, ...dt) {
             return({x:newX,y:newY});
         }
         
-        console.log(transform)
+        //console.log(transform)
+        data.zoom = (1 / transform.k) ** 0.5 || 1;
         
         //d3.selectAll(".annotation-group").remove();
         context.save();
@@ -187,11 +190,9 @@ function load(err, ...dt) {
 //map._resetView([51,0],8)
         hiddencontext.save();
         hiddencontext.clearRect(0, 0, width, height);
-
         hiddencontext.translate(transform.x, transform.y);
         hiddencontext.scale(transform.k, transform.k);
 
-        data.zoom = (1 / transform.k) ** 0.5 || 1;
         draw();
         context.restore();
         hiddencontext.restore();
@@ -199,27 +200,38 @@ function load(err, ...dt) {
         
         window.scroll(0, 0);
         // 
-        // translate(transform.x, transform.y);
-        // scale(transform.k, transform.k);
+         translate(transform.x, transform.y);
+         scale(transform.k, transform.k);
+
+
+
+console.log(matrix,transform)
+try{
+data.makeAnnotations.annotations().forEach((d,i)=>{
+    
+    var e = getXY(d.data.x1,d.data.y1);
+    var me = d3.select('.'+d.id)
+    var mv = Math.max(e.x,e.y)
+    if (mv>width| mv < 0){
+        me.attr('opacity',0)
+    }else{
+        me.attr('opacity',1)
+        var dx = (e.x - d.x + shift.x)
+        d.dx -= dx 
+        d.x = e.x + shift.x
+        var dy = (e.y - d.y)
+        d.dy -= dy
+        d.y = e.y
+        console.log(dx,dy,e,Math.max(e.x,e.y))
+    }
+    
+})
+
+ data.makeAnnotations.update()
+}catch(e){console.log(e)}
 // 
-//          data.annot = data.makeAnnotations.annotations().map(d=>{var e = getXY(d._x1,d._y1); d._x = e.x; d._y=e.y; return d})
-//         // 
-// //         var noteBoxes = data.makeAnnotations.collection().noteNodes
-// //         data.makeAnnotations.annotations().forEach((r, i) => {
-// //   const d = noteBoxes[i]	
-// // var e = getXY(d.x1,d.y1); d.x = e.x; d.y=e.y;
-// // })
 // 
-// data.makeAnnotations.annotations().forEach((d,i)=>{
-// 
-// 
-//     var newx= 222
-//     d.offset.x = data.annotations[i].nx - newx
-//     d.x = newx
-// })
-// 
-// 
-// data.makeAnnotations.update()
+
 // 
         
         
@@ -228,7 +240,7 @@ function load(err, ...dt) {
     zoomed(d3.zoomIdentity);
 
     //
-    // label()
+     label(false)
     
     console.log("data loaded");
 }
