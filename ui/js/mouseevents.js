@@ -1,4 +1,4 @@
-var imageData;
+
 
 function canvasmove(ev) {    
     
