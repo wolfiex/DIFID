@@ -27,6 +27,9 @@ function canvasmove(ev) {
         tool.style("opacity", 0);
     }
     // 
+    
+    if (!data.carto){
+    
     if (imageData != undefined){
         //reset image
         context.putImageData(imageData,0,0)
@@ -48,7 +51,8 @@ function canvasmove(ev) {
     context.arc(x, y, 20, 0, 2 * Math.PI);
     context.stroke();
     
-    
+}
+
 }
 
 

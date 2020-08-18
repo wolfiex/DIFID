@@ -7,13 +7,19 @@ function closeNav(x) {
 }
 
 function switchview(){
-    fadeout(['canvas','#world'],duration=1500)
+    fadeout(['canvas','#world'],duration=500,delay=0)
     data.carto = !data.carto;
     d3.select('#L1').text(data.carto? 't-SNE Map View':'World View');
-    draw()
-    fadein(['canvas','#world'],duration=2000,delay=1500)
-    imageData = undefined
-
+    draw();
+    
+    if (!data.carto){
+        data.makeAnnotations = undefined;
+        label();
+        fadein(['canvas'],duration=2000,delay=500);
+    }else{
+        fadein(['canvas','#world'],duration=2000,delay=500)
+    }
+imageData = undefined
 }
 
 function access(xid) {
