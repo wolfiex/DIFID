@@ -222,7 +222,6 @@ data.makeAnnotations.annotations().forEach((d,i)=>{
         var dy = (e.y - d.y)
         d.dy -= dy
         d.y = e.y
-        console.log(dx,dy,e,Math.max(e.x,e.y))
     }
     
 })
@@ -237,10 +236,16 @@ data.makeAnnotations.annotations().forEach((d,i)=>{
         
     }
 
-    zoomed(d3.zoomIdentity);
+    //
+    label()
+    label()
+
+    var zl = 0.6
+    zoomed({k: zl, x: (1-zl)*width/2, y: (1-zl)*width/2});
 
     //
-     label(false)
+     label()
+     label()
     
     console.log("data loaded");
 }

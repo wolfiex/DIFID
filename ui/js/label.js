@@ -92,13 +92,16 @@ function label(){
           .attr("class", "annotation-group")  
           .style('opacity',0)
           .call(data.makeAnnotations)
+          
+          
 
     // d3.selectAll('.annotation-note-label tspan').attr('dy','1.8em')
-    d3.selectAll('.annotation-connector').attr('opacity',.6)
+    d3.selectAll('.annotation-connector').attr('opacity',.3)
     d3.selectAll('.annotation-note-label')
     .style('pointer-events','auto')
     .on('mouseover',function(){
         var p = d3.select(this);
+        
         [...p.node().parentElement.parentElement.parentElement.querySelectorAll('path, text')].forEach(d=>{d3.select(d).classed('hilight',true)})
     })
     .on('mouseout',function(){

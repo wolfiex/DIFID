@@ -146,6 +146,11 @@ input[type=radio]:not(old):checked+label>span {
     stroke-width: 2.4px;
 }
 
+.annotation-connector path .connector .hilight{
+    opacity:0.7;
+}
+
+
 #world {
     position: absolute;
     width: 10vw;
