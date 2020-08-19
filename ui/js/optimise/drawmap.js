@@ -12,7 +12,7 @@ function setMap(){
         
     map = L.map('world',{ zoomControl: false }).setView([-0.2858, 0.7068], 1);
     mapLink = 
-        '<a href="http://openstreetmap.org">OpenStreetMap</a>';
+        '<a href="https://openstreetmap.org">OpenStreetMap</a>';
     L.tileLayer(
         'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; ' + mapLink + ' | DIFID | CEMAC   <br> '+'',
