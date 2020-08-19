@@ -29,6 +29,7 @@ d3
     .defer(d3.csv, "../data/label_tsne.csv") //labelloc
     .defer(d3.csv, "../data/locations.csv")
     .defer(d3.json, "continents.geojson")
+    .defer(d3.csv, "../data/topic_hierarchy.csv")
     
     //.defer(d3.csv, '../preprocess/nodes.csv')// node data
     .await(load);
@@ -39,7 +40,6 @@ function load(err, ...dt) {
     data = {};
 
     var basecol = "continent"; //'wc__oecd'//continent
-
     data[basecol] = [...new Set(dt[0].map(d => d[basecol]))];
     data.colours = "f94144-f3722c-f8961e-f9c74f-90be6d-43aa8b-577590"
         .split("-")
@@ -78,10 +78,10 @@ function load(err, ...dt) {
         return d;
     });
 
-    data.topics = dt[2].map(d=>{Object.keys(d).forEach(e=>{d[e] = +d[e]}); return d});
+    data.topics = new Map(dt[2].map(d=>{Object.keys(d).forEach(e=>{d[e] = +d[e]}); return [''+d.doc_id,d] }) );
     
     // slider scale
-    data.weight = d3.scaleLinear().range(d3.extent(data.topics.map(d=>d.score)))
+    data.weight = d3.scaleLinear().range(d3.extent([...data.topics.values()].map(d=>d.score))).domain([100,0])
     
 
     var hw = width / 2.0;
@@ -109,7 +109,7 @@ function load(err, ...dt) {
     });
 
     // topic filtered
-    data.top = dt[6]
+    data.hierarchy = dt[6]
 
 
     // set up canvas
@@ -155,98 +155,16 @@ function load(err, ...dt) {
 
     shift = d3.select('canvas').node().getBoundingClientRect()
 
-    function zoomed(transform) {
-        
-        imageData = undefined;
-        
-        var matrix=[1,0,0,1,0,0];
-        
-        function translate(x,y){
-            matrix[4] += matrix[0] * x + matrix[2] * y;
-            matrix[5] += matrix[1] * x + matrix[3] * y;
 
-        }
-        function scale(x,y){
-            matrix[0] *= x;
-            matrix[1] *= x;
-            matrix[2] *= y;
-            matrix[3] *= y;    
-        }
-        
-        function getXY(mouseX,mouseY){
-            newX = mouseX * matrix[0] + mouseY * matrix[2] + matrix[4];
-            newY = mouseX * matrix[1] + mouseY * matrix[3] + matrix[5];
-            return({x:newX,y:newY});
-        }
-        
-        //console.log(transform)
-        data.zoom = (1 / transform.k) ** 0.5 || 1;
-        
-        //d3.selectAll(".annotation-group").remove();
-        context.save();
-        context.clearRect(0, 0, width, height);
-        context.translate(transform.x, transform.y);
-        context.scale(transform.k, transform.k);
-//map._resetView([51,0],8)
-        hiddencontext.save();
-        hiddencontext.clearRect(0, 0, width, height);
-        hiddencontext.translate(transform.x, transform.y);
-        hiddencontext.scale(transform.k, transform.k);
-
-        draw();
-        context.restore();
-        hiddencontext.restore();
-        
-        
-        window.scroll(0, 0);
-        // 
-         translate(transform.x, transform.y);
-         scale(transform.k, transform.k);
-
-
-
-console.log(matrix,transform)
-try{
-data.makeAnnotations.annotations().forEach((d,i)=>{
-    
-    var e = getXY(d.data.x1,d.data.y1);
-    var me = d3.select('.'+d.id)
-    var mv = Math.max(e.x,e.y)
-    if (mv>width| mv < 0){
-        me.attr('opacity',0)
-    }else{
-        me.attr('opacity',1)
-        var dx = (e.x - d.x + shift.x)
-        d.dx -= dx 
-        d.x = e.x + shift.x
-        var dy = (e.y - d.y)
-        d.dy -= dy
-        d.y = e.y
-    }
-    
-})
-
- data.makeAnnotations.update()
-}catch(e){console.log(e)}
-// 
-// 
-
-// 
-        
-        
-    }
 
     //
     label()
-    label()
-
     var zl = 0.6
     zoomed({k: zl, x: (1-zl)*width/2, y: (1-zl)*width/2});
-
-    //
-     label()
-     label()
+    label()
     
+    
+    draw_topics(data,width)
     console.log("data loaded");
 }
 
@@ -265,6 +183,9 @@ function draw() {
     var filtered = data.filtered || data.tsne;
     console.log("initial filtered datapoints", filtered.length);
 
+    
+
+
     if (data.carto) {
         var ix = "loc";
          d3.select('.annotation-group').remove()
@@ -274,8 +195,6 @@ function draw() {
                     d.loc = map.latLngToLayerPoint(
                         data.locations.get(d.doc_id)
                     );
-                    // console.log(d.loc)
-                    //[loc.x+Math.random()*0.001,loc.y]
                     return d;
                     
                 } catch (e) {

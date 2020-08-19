@@ -92,3 +92,131 @@ function mousesetup(hiddencontext, mainCanvas, map){
     map.on("dblclick", canvasdblclick);
     
 }
+
+
+function zoomed(transform) {
+    
+    imageData = undefined;
+    
+    var matrix=[1,0,0,1,0,0];
+    
+    function translate(x,y){
+        matrix[4] += matrix[0] * x + matrix[2] * y;
+        matrix[5] += matrix[1] * x + matrix[3] * y;
+
+    }
+    function scale(x,y){
+        matrix[0] *= x;
+        matrix[1] *= x;
+        matrix[2] *= y;
+        matrix[3] *= y;    
+    }
+    
+    function getXY(mouseX,mouseY){
+        newX = mouseX * matrix[0] + mouseY * matrix[2] + matrix[4];
+        newY = mouseX * matrix[1] + mouseY * matrix[3] + matrix[5];
+        return({x:newX,y:newY});
+    }
+    
+    //console.log(transform)
+    data.zoom = (1 / transform.k) ** 0.5 || 1;
+    
+    //d3.selectAll(".annotation-group").remove();
+    context.save();
+    context.clearRect(0, 0, width, height);
+    context.translate(transform.x, transform.y);
+    context.scale(transform.k, transform.k);
+//map._resetView([51,0],8)
+    hiddencontext.save();
+    hiddencontext.clearRect(0, 0, width, height);
+    hiddencontext.translate(transform.x, transform.y);
+    hiddencontext.scale(transform.k, transform.k);
+
+    draw();
+    context.restore();
+    hiddencontext.restore();
+    
+    
+    window.scroll(0, 0);
+    // 
+     translate(transform.x, transform.y);
+     scale(transform.k, transform.k);
+
+
+
+try{
+data.makeAnnotations.annotations().forEach((d,i)=>{
+
+var e = getXY(d.data.x1,d.data.y1);
+
+var me = d3.selectAll('.'+d.id)
+
+if ((Math.max(e.x,e.y)>width ) | (Math.min(e.x,e.y) < 0)){
+    me.attr('opacity',0)
+}else{
+    me.attr('opacity',1)
+    var dx = (e.x - d.x + shift.x)
+    d.dx -= dx 
+    d.x = e.x + shift.x
+    var dy = (e.y - d.y)
+    d.dy -= dy
+    d.y = e.y
+}
+
+})
+
+data.makeAnnotations.update()
+}catch(e){console.log(e)}
+
+    
+    
+}
+
+
+
+function sliderchange(){
+    
+
+    data.filtered = data.tsne
+    if (data.topicfilter){
+        var topics = data.topicfilter.map(d=>d.data.name)
+        // topiics
+        var toplev = data.hierarchy.filter(d=>topics.includes(d.l3)).map(d=>d.id)
+        var pc = data.weight(parseFloat(document.getElementById('points').value))**2
+        
+        data.filtered = data.filtered.filter(d=>{
+        
+            var d = data.topics.get(d.doc_id)
+            return d.score > pc & toplev.includes(''+d.topic_id)
+            
+        
+        })
+        
+        
+    }else{
+        var pc = data.weight(parseFloat(document.getElementById('points').value))**2
+        
+        data.filtered = data.filtered.filter(d=>{
+            return data.topics.get(d.doc_id).score > pc 
+        })
+    }
+    
+    if (data.continentselection){
+    
+    console.log(data.continentselection,data.filtered)
+        
+    data.filtered = data.filtered.filter(d=>{
+    var cs = data.info.get(d.doc_id).continent;
+    return data.continentselection.includes(cs);
+    })
+}
+    
+    var pc = data.weight(parseFloat(document.getElementById('points').value))**2
+    data.filtered = data.filtered.filter(d=>data.topics.get(d.doc_id).score > pc)
+    
+    if (data.showlabel){label()}
+    draw()
+    
+    
+    
+}

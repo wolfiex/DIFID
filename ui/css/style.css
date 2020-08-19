@@ -28,6 +28,7 @@ svg#overlay {
 
 #slider{
     right:0;
+    bottom:5;
     position: absolute;
     display: block;
     font-size: 10px;
@@ -178,6 +179,17 @@ input[type=radio]:not(old):checked+label>span {
 
 }
 
+#topicselector {
+    position: absolute;
+    /* display: block; */
+    margin-left: auto;
+    margin-right: auto;
+        z-index: 399;
+        opacity:1!important;
+        background-color: rgba(255,255,255,.9); 
+
+}
+
 .recentre {
     position:relative;
     background-color: white;
@@ -191,4 +203,23 @@ input[type=radio]:not(old):checked+label>span {
     margin-right: auto;
     display: table;
     border-radius: 2px;
+}
+
+
+
+/* tree  */
+.node circle {
+  fill: #fff;
+  stroke: steelblue;
+  stroke-width: 3px;
+}
+
+.node text {
+  font: 12px sans-serif;
+}
+
+.link {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 2px;
 }

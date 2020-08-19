@@ -14,10 +14,10 @@
     <!-- <h2 id=header class='logo'>EviMapping </h2> -->
     <span id='title'></span>
 
-    <svg id='countryselector' style='visibility:hidden' >
-    <svg id='topicselector' style='visibility:hidden' >
+    <svg id='countryselector' style='visibility:hidden' />
+    <svg id='topicselector' style='visibility:hidden'  />
 
-    </svg>
+    
 
 
 
@@ -52,7 +52,7 @@
 
     <div id='sidebar'>
         <a href="#" id="L1" onclick='switchview()'> World View </a>
-        <a href="topics.svg" id="L4">Topic Selector</a>
+        <a href="#" id="L4" onclick='access("topicselector")'>Topic Selector</a>
         <a href="#" id="L2" onclick='label()'>Draw Labels</a>
         <a href="#" id="L3" onclick='access("countryselector")'>Continent Filter</a>
 
@@ -68,7 +68,7 @@
     <div id="container"></div>
 
     
-        <label id='slider' for="points" >Score: <input type="range" id="points" name="points" min="0" max="100" value='100' class='slider'></label>
+        <label id='slider' for="points" >Score: <input type="range" id="points" name="points" min="0" max="100" value='100' class='slider' onchange='sliderchange()'></label>
     
 
 
@@ -86,6 +86,9 @@
 
 <link rel="stylesheet" href="https://d19vzq90twjlae.cloudfront.net/leaflet-0.7/leaflet.css" />
 <script src="https://d19vzq90twjlae.cloudfront.net/leaflet-0.7/leaflet.js"></script>
+<script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+<script src="https://unpkg.com/topojson-client@3"></script>
+<script src="https://d3js.org/d3-array.v2.min.js"></script>
 <script src="js/drawmap.js"></script>
 <script src="js/d3.v4.min.js"></script>
 <script src="js/sidebar.js"></script>
@@ -95,11 +98,7 @@
 <script src="js/legend.js"></script>
 <script src="js/label.js"></script>
 <script src="js/mouseevents.js"></script>
-
-<script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
-<script src="https://unpkg.com/topojson-client@3"></script>
 <script src="js/select_country.js"></script>
-
 <script src="js/index.js"></script>
 
 

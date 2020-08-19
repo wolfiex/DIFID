@@ -122,8 +122,6 @@ function showcselect() {
 
 
     context.clearRect(0, 0, width, height);
-    data.filtered = data.tsne.filter(d =>
-        data.continentselection.includes(data.info.get(d.doc_id).continent)
-    );
-    draw();
+
+     sliderchange() 
 }
