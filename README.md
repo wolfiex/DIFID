@@ -19,6 +19,7 @@ And even filter by topic
 
 <img src='topicselect.png' style='width:400px' />
 
+## Usage
 ### Sidebar options
 - (green) world map : positions based on paper/topic/author location
 - (green) t-sne plot
