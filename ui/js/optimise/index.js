@@ -4,10 +4,16 @@ var div = document.getElementById("div");
 div.style.height = "1em";
 em = div.offsetHeight;
 var imageData = undefined;
-var data,shift;
-var width = height = d3.min([window.innerWidth, window.innerHeight-40,window.innerWidth-300])
+var data, shift;
+var width = (height = d3.min([
+    window.innerWidth,
+    window.innerHeight - 40,
+    window.innerWidth - 300
+]));
 
-if (width<200){alert('window size too small, please enlarge this!')}
+if (width < 200) {
+    alert("window size too small, please enlarge this!");
+}
 
 var halfwidth = width / 2;
 // main canvas - plotting
@@ -30,7 +36,6 @@ d3
     .defer(d3.csv, "../data/locations.csv")
     .defer(d3.json, "continents.geojson")
     .defer(d3.csv, "../data/topic_hierarchy.csv")
-    
     //.defer(d3.csv, '../preprocess/nodes.csv')// node data
     .await(load);
 
@@ -61,7 +66,7 @@ function load(err, ...dt) {
         return d;
     });
 
-    data.carto=false
+    data.carto = false;
     // limits for scale fn
     data.x = d3
         .scaleLinear()
@@ -78,11 +83,20 @@ function load(err, ...dt) {
         return d;
     });
 
-    data.topics = new Map(dt[2].map(d=>{Object.keys(d).forEach(e=>{d[e] = +d[e]}); return [''+d.doc_id,d] }) );
-    
+    data.topics = new Map(
+        dt[2].map(d => {
+            Object.keys(d).forEach(e => {
+                d[e] = +d[e];
+            });
+            return ["" + d.doc_id, d];
+        })
+    );
+
     // slider scale
-    data.weight = d3.scaleLinear().range(d3.extent([...data.topics.values()].map(d=>d.score))).domain([100,0])
-    
+    data.weight = d3
+        .scaleLinear()
+        .range(d3.extent([...data.topics.values()].map(d => d.score)))
+        .domain([100, 0]);
 
     var hw = width / 2.0;
     data.labels = dt[3]
@@ -109,8 +123,7 @@ function load(err, ...dt) {
     });
 
     // topic filtered
-    data.hierarchy = dt[6]
-
+    data.hierarchy = dt[6];
 
     // set up canvas
     mainCanvas = d3
@@ -138,10 +151,9 @@ function load(err, ...dt) {
     // draw()
     draw_world(dt[5]);
 
-    
-    setMap()
-    mousesetup(hiddencontext, mainCanvas, map)
-    
+    setMap();
+    mousesetup(hiddencontext, mainCanvas, map);
+
     d3
         .select("canvas")
         .call(
@@ -153,23 +165,17 @@ function load(err, ...dt) {
                 .on("zoom", () => zoomed(d3.event.transform))
         );
 
-    shift = d3.select('canvas').node().getBoundingClientRect()
-
-
+    shift = d3.select("canvas").node().getBoundingClientRect();
 
     //
-    label()
-    var zl = 0.6
-    zoomed({k: zl, x: (1-zl)*width/2, y: (1-zl)*width/2});
-    label()
-    
-    
-    draw_topics(data,width)
+    label();
+    var zl = 0.6;
+    zoomed({ k: zl, x: (1 - zl) * width / 2, y: (1 - zl) * width / 2 });
+    label();
+
+    draw_topics(data, width);
     console.log("data loaded");
 }
-
-
-
 
 //////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////
@@ -183,12 +189,9 @@ function draw() {
     var filtered = data.filtered || data.tsne;
     console.log("initial filtered datapoints", filtered.length);
 
-    
-
-
     if (data.carto) {
         var ix = "loc";
-         d3.select('.annotation-group').remove()
+        d3.select(".annotation-group").remove();
         filtered = filtered
             .map(d => {
                 try {
@@ -196,7 +199,6 @@ function draw() {
                         data.locations.get(d.doc_id)
                     );
                     return d;
-                    
                 } catch (e) {
                     return false;
                 }
@@ -205,7 +207,10 @@ function draw() {
 
         mainCanvas.style("pointer-events", "none");
 
-        d3.select("#world").style("visibility", "visible").style("pointer-events", "auto");
+        d3
+            .select("#world")
+            .style("visibility", "visible")
+            .style("pointer-events", "auto");
     } else {
         var ix = "tloc";
         d3.select("#world").style("visibility", "hidden");
@@ -243,7 +248,6 @@ function draw() {
             );
         }
     }
-    
 
     var keys = [];
     filtered.forEach(d => {
@@ -258,10 +262,8 @@ function draw() {
         context.fill();
     });
 
-
     //legend
     legend([...new Set(keys)], cmap);
-
 
     // set invisible nodes
     data.nodeclr = {};
@@ -274,13 +276,7 @@ function draw() {
         hiddencontext.fillStyle = c;
         hiddencontext.fill();
     });
-
-
 }
-
-
-
-
 
 function drawCell(ctx, cell) {
     if (!cell) return false;
@@ -292,7 +288,6 @@ function drawCell(ctx, cell) {
     return true;
 }
 
-
 // function for tooltip
 function genColor(i) {
     var ret = [];
@@ -303,7 +298,6 @@ function genColor(i) {
     }
     return "rgb(" + ret.join(",") + ")";
 }
-
 
 // load paper
 function doi(x) {

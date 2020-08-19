@@ -41,8 +41,7 @@ function draw_topics(data,width){
     
     data.treeData = table2Tree(data.hierarchy, 'l1 l2 l3'.split(' '), v => d3.sum(v, d => parseFloat(d.id)))
     
-    // 
-    // console.log(data.treeData)
+
 
 var shift = d3.select('.mainCanvas').node().offsetLeft
     var svg = d3.select("#topicselector").attr('transform',`translate(${shift},0)`).style('opacity',0)
